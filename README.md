@@ -13,10 +13,6 @@ Add your user to the Docker group
 ```
 sudo usermod -aG docker $(whoami)
 ```
-Create a directory to store container configs
-```
-mkdir ~/dockerData
-```
 Reboot the server to complete installation
 ```
 sudo reboot
