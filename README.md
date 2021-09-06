@@ -23,7 +23,7 @@ sudo reboot
 ```
 
 ## Services
-Clone the repo
+Clone the repo before bringing up any services
 ```
 git clone https://github.com/Rockz1152/Docker.git && cd Docker
 ```
