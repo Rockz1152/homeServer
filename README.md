@@ -1,4 +1,4 @@
-# Docker
+# homeServer
 
 ## Installation
 Install docker
@@ -25,7 +25,7 @@ sudo reboot
 ## Services
 Clone the repo
 ```
-git clone https://github.com/Rockz1152/Docker.git && cd Docker
+git clone https://github.com/Rockz1152/Docker.git && cd homeServer
 ```
 Update the `.env` file before bringing up any services
 ```
