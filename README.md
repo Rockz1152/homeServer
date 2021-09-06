@@ -25,7 +25,7 @@ sudo reboot
 ## Services
 Clone the repo
 ```
-git clone https://github.com/Rockz1152/Docker.git && cd homeServer
+git clone https://github.com/Rockz1152/homeServer.git && cd homeServer
 ```
 Update the `.env` file before bringing up any services
 ```
