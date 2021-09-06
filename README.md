@@ -28,12 +28,12 @@ Clone the repo
 git clone https://github.com/Rockz1152/Docker.git && cd Docker
 ```
 
-### Pi-Hole
-```
-docker-compose -f pihole.yml up -d
-```
-
 ### Portainer
 ```
 docker-compose -f portainer.yml up -d
+```
+
+### Pi-Hole
+```
+docker-compose -f pihole.yml up -d
 ```
