@@ -23,9 +23,13 @@ sudo reboot
 ```
 
 ## Services
-Clone the repo before bringing up any services
+Clone the repo
 ```
 git clone https://github.com/Rockz1152/Docker.git && cd Docker
+```
+Update the `.env` file before bringing up any services
+```
+nano .env
 ```
 
 ### Portainer
