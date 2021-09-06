@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    hostname: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: 'America/New_York'
+      WEBPASSWORD: 'password' #Your Password Goes Here
+      WEBTHEME: 'default-darker'
+      PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
+    volumes:
+      - '/home/rockz/dockerData/etc-pihole/:/etc/pihole/'
+      - '/home/rockz/dockerData/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    restart: unless-stopped
