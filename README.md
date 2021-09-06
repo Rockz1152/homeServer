@@ -29,6 +29,7 @@ nano .env
 ```
 
 ### Portainer
+_*Running portainer with docker instead of docker-compose will prevent portainer from showing up as an unmanged stack inside itself_
 ```
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v `source .env; echo ${DATADIR}`/portainer:/data portainer/portainer-ce
 ```
