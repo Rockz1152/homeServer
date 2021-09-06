@@ -16,6 +16,6 @@ services:
       WEBTHEME: 'default-darker'
       PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
     volumes:
-      - '${DATADIR}/etc-pihole/:/etc/pihole/'
-      - '${DATADIR}/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - "${DATADIR}/etc-pihole/:/etc/pihole/"
+      - "${DATADIR}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
     restart: unless-stopped
