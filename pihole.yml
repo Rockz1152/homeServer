@@ -1,5 +1,4 @@
 version: "2"
-
 services:
   pihole:
     container_name: pihole
