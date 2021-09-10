@@ -34,7 +34,7 @@ _*Running portainer with docker instead of docker-compose will prevent portainer
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v `source .env; echo ${DATADIR}`/portainer:/data portainer/portainer-ce
 ```
 
-### Pi-Hole
+### AdGuard
 ```
-docker-compose -f pihole.yml up -d
+docker-compose -f adguard.yml up -d
 ```
