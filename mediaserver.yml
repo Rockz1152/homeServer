@@ -12,7 +12,7 @@ services:
       #- PLEX_CLAIM= #optional
     volumes:
       - ${DATADIR}/plex:/config
-      #- /path/to/tvseries:/tv
-      #- /path/to/movies:/movies
+      - ${MEDIADIR}:/mnt/media
     restart: unless-stopped
+    
     
