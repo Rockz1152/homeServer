@@ -52,6 +52,6 @@ services:
       - "8999:8999/udp"
     volumes:
       - ${DATADIR}/qBittorrentVPN:/config
-      - ${DOWNLOADSDIR}/downloads:/downloads #Where you want downloads to be saved
+      - ${DOWNLOADSDIR}:/downloads #Where you want downloads to be saved
       - /etc/timezone:/etc/timezone:ro #This is for TimeZone
     restart: unless-stopped
