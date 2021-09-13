@@ -28,31 +28,44 @@ services:
     volumes:
       - ${DATADIR}/tautulli:/config
     restart: unless-stopped
-    
-  qbittorrentvpn:
+
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    hostname: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment: SERVERURL, SERVERPORT, INTERNAL_SUBNET and PEERDNS
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATADIR}/wireguard:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+  qbittorrent:
+    image: linuxserver/qbittorrent
     container_name: qbittorrent
-    hostname: qbittorrent
-    image: markusmcnugen/qbittorrentvpn
-    privileged: true
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - VPN_ENABLED=${QBVPN_ENABLED}
-      - VPN_USERNAME=${QBVPN_USERNAME}
-      - VPN_PASSWORD=${QBVPN_PASSWORD}
-      - WEBUI_PORT_ENV=8080
-      - INCOMING_PORT_ENV=8999
-      - LAN_NETWORK=${QBLAN_NETWORK}
-      - NAME_SERVERS=${QBNAME_SERVERS}
-    ports:
-      - "8080:8080"
-      - "8999:8999"
-      - "8999:8999/udp"
+      - TZ=${TZ}
+      - WEBUI_PORT=8080
     volumes:
-      - ${DATADIR}/qBittorrentVPN:/config
-      - ${DOWNLOADSDIR}:/downloads #Where you want downloads to be saved
-      - /etc/timezone:/etc/timezone:ro #This is for TimeZone
+      - ${DATADIR}/qbittorrent:/config
+      - ${DOWNLOADSDIR}:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
     restart: unless-stopped
+    network_mode: "service:wireguard"
 
   prowlarr:
     image: hotio/prowlarr:testing
