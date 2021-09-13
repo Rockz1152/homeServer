@@ -35,18 +35,15 @@ services:
     image: markusmcnugen/qbittorrentvpn
     privileged: true
     environment:
-      - PUID=1000
-      - PGID=1000
-      # Change VPN_ENABLED from 'no' to 'yes' to use a VPN
-      - VPN_ENABLED=no
-      # Uncomment below and fill in if you want to use a VPN. You must put the .ovpn file in /config/openvpn
-      # - VPN_TYPE=openvpn
-      # - VPN_USERNAME=username
-      # - VPN_PASSWORD=password
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - VPN_ENABLED=${QBVPN_ENABLED}
+      - VPN_USERNAME=${QBVPN_USERNAME}
+      - VPN_PASSWORD=${QBVPN_PASSWORD}
       - WEBUI_PORT_ENV=8080
       - INCOMING_PORT_ENV=8999
-      - LAN_NETWORK=192.168.0.0/16 #adjust this to YOUR network settings
-      - NAME_SERVERS=1.1.1.1,1.0.0.1 #you can use whatever DNS provider you want
+      - LAN_NETWORK=${QBLAN_NETWORK}
+      - NAME_SERVERS=${QBNAME_SERVERS}
     ports:
       - "8080:8080"
       - "8999:8999"
@@ -55,4 +52,17 @@ services:
       - ${DATADIR}/qBittorrentVPN:/config
       - ${DOWNLOADSDIR}:/downloads #Where you want downloads to be saved
       - /etc/timezone:/etc/timezone:ro #This is for TimeZone
+    restart: unless-stopped
+
+  prowlarr:
+    image: hotio/prowlarr:testing
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATADIR}/prowlarr:/config
+    ports:
+      - 9696:9696
     restart: unless-stopped
