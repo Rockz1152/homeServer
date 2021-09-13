@@ -89,8 +89,23 @@ services:
       - TZ=${TZ}
     volumes:
       - ${DATADIR}/radarr:/config
-      - ${MEDIADIR}:/mnt/media
+      - ${MEDIADIR}/movies:/movies
       - ${DOWNLOADSDIR}:/downloads
     ports:
       - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATADIR}/sonarr:/config
+      - ${MEDIADIR}/shows:/tv
+      - ${DOWNLOADSDIR}:/downloads
+    ports:
+      - 8989:8989
     restart: unless-stopped
