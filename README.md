@@ -13,12 +13,6 @@ Add your user to the Docker group
 ```
 sudo usermod -aG docker $(whoami)
 ```
-Reboot the server to complete installation
-```
-sudo reboot
-```
-
-## Services
 Clone the repo
 ```
 git clone https://github.com/Rockz1152/homeServer.git && cd homeServer
@@ -27,6 +21,12 @@ Update the `.env` file before bringing up any services
 ```
 nano .env
 ```
+Reboot the server to complete installation
+```
+sudo reboot
+```
+
+## Services
 
 ### Portainer
 _*Running portainer with docker instead of docker-compose will prevent portainer from showing up as an unmanged stack inside itself_
