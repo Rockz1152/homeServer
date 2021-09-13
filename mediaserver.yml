@@ -15,4 +15,43 @@ services:
       - ${MEDIADIR}:/mnt/media
     restart: unless-stopped
     
+  tautulli:
+    image: tautulli/tautulli
+    container_name: tautulli
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 8181:8181
+    volumes:
+      - ${DATADIR}/tautulli:/config
+    restart: unless-stopped
     
+  qbittorrentvpn:
+    container_name: qbittorrent
+    hostname: qbittorrent
+    image: markusmcnugen/qbittorrentvpn
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      # Change VPN_ENABLED from 'no' to 'yes' to use a VPN
+      - VPN_ENABLED=no
+      # Uncomment below and fill in if you want to use a VPN. You must put the .ovpn file in /config/openvpn
+      # - VPN_TYPE=openvpn
+      # - VPN_USERNAME=username
+      # - VPN_PASSWORD=password
+      - WEBUI_PORT_ENV=8080
+      - INCOMING_PORT_ENV=8999
+      - LAN_NETWORK=192.168.0.0/16 #adjust this to YOUR network settings
+      - NAME_SERVERS=1.1.1.1,1.0.0.1 #you can use whatever DNS provider you want
+    ports:
+      - "8080:8080"
+      - "8999:8999"
+      - "8999:8999/udp"
+    volumes:
+      - ${DATADIR}/qBittorrentVPN:/config
+      - ${DOWNLOADSDIR}/downloads:/downloads #Where you want downloads to be saved
+      - /etc/timezone:/etc/timezone:ro #This is for TimeZone
+    restart: unless-stopped
