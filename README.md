@@ -49,7 +49,5 @@ docker-compose -f adguard.yml up -d
 
 - Radarr
 - Sonarr
-- Lidarr
-- Readarr
 
 ...
