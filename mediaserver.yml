@@ -45,6 +45,9 @@ services:
       - /lib/modules:/lib/modules
     ports:
       - 51820:51820/udp
+      - 6881:6881 # qBittorrent
+      - 6881:6881/udp # qBittorrent
+      - 8080:8080 # qBittorrent
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
@@ -52,6 +55,7 @@ services:
   qbittorrent:
     image: linuxserver/qbittorrent
     container_name: qbittorrent
+    privileged: true
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -60,10 +64,6 @@ services:
     volumes:
       - ${DATADIR}/qbittorrent:/config
       - ${DOWNLOADSDIR}:/downloads
-    ports:
-      - 6881:6881
-      - 6881:6881/udp
-      - 8080:8080
     restart: unless-stopped
     network_mode: "service:wireguard"
 
