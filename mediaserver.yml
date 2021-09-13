@@ -4,6 +4,7 @@ services:
   plex:
     image: ghcr.io/linuxserver/plex
     container_name: plex
+    hostname: plex
     network_mode: host
     environment:
       - PUID=${PUID}
