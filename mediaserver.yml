@@ -79,3 +79,18 @@ services:
     ports:
       - 9696:9696
     restart: unless-stopped
+
+  radarr:
+    image: hotio/radarr
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATADIR}/radarr:/config
+      - ${MEDIADIR}:/mnt/media
+      - ${DOWNLOADSDIR}:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
