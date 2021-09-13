@@ -51,3 +51,6 @@ docker-compose -f adguard.yml up -d
 - Sonarr
 
 ...
+
+Portainer
+- "Load variables from .env file"
