@@ -36,7 +36,7 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
-    environment: SERVERURL, SERVERPORT, INTERNAL_SUBNET and PEERDNS
+    environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
