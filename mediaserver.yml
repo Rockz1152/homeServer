@@ -64,11 +64,11 @@ services:
     volumes:
       - ${DATADIR}/qbittorrent:/config
       - ${DOWNLOADSDIR}:/downloads
+    restart: unless-stopped
     #ports:
       #- 6881:6881
       #- 6881:6881/udp
       #- 8080:8080
-    restart: unless-stopped
     network_mode: "service:wireguard"
 
   prowlarr:
