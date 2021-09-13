@@ -96,7 +96,7 @@ services:
     restart: unless-stopped
 
   sonarr:
-    image: ghcr.io/linuxserver/sonarr
+    image: hotio/sonarr
     container_name: sonarr
     environment:
       - PUID=${PUID}
