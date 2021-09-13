@@ -47,4 +47,7 @@ docker-compose -f adguard.yml up -d
 - Tautulli
 - qBittorrent-VPN 
 
+- Radarr
+- Sonarr
+
 ...
