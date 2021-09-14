@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    hostname: portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATADIR}/portainer:/data
