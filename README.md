@@ -42,7 +42,7 @@ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --priv
 cd ~/homeServer
 docker stop Portainer
 docker rm Portainer
-docker pull portainer/portainer-ce
+docker image prune -a -f
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $(source .env; echo ${DATADIR})/portainer:/data portainer/portainer-ce
 ```
 
