@@ -21,12 +21,8 @@ sudo reboot
 ----
 
 ## Portainer and Watchtower
-```
-docker-compose -f portwatch.yml up -d
-```
 
-### Starting Portainer
-_*Running portainer with docker instead of docker-compose will prevent portainer from showing up as an unmanged stack inside itself_
+### Installation
 Clone the repo
 ```
 cd ~/ && git clone https://github.com/Rockz1152/homeServer.git && cd homeServer
@@ -35,19 +31,56 @@ Update the `.env` file before bringing up any services
 ```
 nano .env
 ```
-Install Portainer
+
+#### Using docker-compose (Recommended)
 ```
-docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $(source .env; echo ${DATADIR})/portainer:/data portainer/portainer-ce
+docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
-### Updating
+#### Manually
+_*Running Portainer and Watchtower with docker instead of docker-compose will prevent portainer from showing up as an unmanged stack inside itself_
+
+Install Portainer
+```
+docker run -d \
+-p 8000:8000 \
+-p 9000:9000 \
+--name=portainer \
+--restart=always \
+--privileged \
+--label "com.centurylinklabs.watchtower.enable=true" \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v $(source .env; echo ${DATADIR})/portainer:/data \
+portainer/portainer-ce
+```
+Install Watchtower
+```
+docker run -d \
+--name watchtower \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /etc/localtime:/etc/localtime:ro \
+--cleanup \
+--include-restarting \
+--label-enable \
+--label "com.centurylinklabs.watchtower.enable=true" \
+containrrr/watchtower
+```
+
+### Repairing
+_*The default configuration for portainer and watchtower will automatically keep them up-to-date_
+If you accidentally remove Portainer or Watchtower, use these commands to repair them
 ```
 cd ~/homeServer
 docker stop portainer
+docker stop watcher
 docker rm portainer
-docker image prune -a -f
-docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $(source .env; echo ${DATADIR})/portainer:/data portainer/portainer-ce
+docker rm watchtower
+docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
+
+<!-- old docker run cmd
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $(source .env; echo ${DATADIR})/portainer:/data portainer/portainer-ce
+-->
 
 ----
 
