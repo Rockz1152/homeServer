@@ -59,11 +59,11 @@ docker run -d \
 --name watchtower \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v /etc/localtime:/etc/localtime:ro \
+--label "com.centurylinklabs.watchtower.enable=true" \
+containrrr/watchtower \
 --cleanup \
 --include-restarting \
---label-enable \
---label "com.centurylinklabs.watchtower.enable=true" \
-containrrr/watchtower
+--label-enable
 ```
 
 ### Repairing
