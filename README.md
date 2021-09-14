@@ -38,7 +38,7 @@ docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
 #### Manually
-_*Running Portainer and Watchtower with docker instead of docker-compose will prevent portainer from showing up as an unmanged stack inside itself_
+<sup>_*Running Portainer and Watchtower with docker instead of docker-compose will prevent them from showing up as an unmanged stack inside portainer_</sup>
 
 Install Portainer
 ```
