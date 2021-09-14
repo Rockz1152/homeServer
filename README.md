@@ -72,7 +72,7 @@ If you accidentally remove Portainer or Watchtower, use these commands to repair
 ```
 cd ~/homeServer
 docker stop portainer
-docker stop watcher
+docker stop watchtower
 docker rm portainer
 docker rm watchtower
 docker-compose -p "portwatch" -f portwatch.yml up -d
