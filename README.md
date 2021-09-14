@@ -49,7 +49,7 @@ docker rm watchtower
 docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
-#### Manual Installation
+### Manual Installation
 <sup>_*Running Portainer and Watchtower with docker instead of docker-compose will prevent them from showing up as an unmanged stack inside portainer_</sup>
 
 Install Portainer
