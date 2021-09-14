@@ -20,7 +20,10 @@ sudo reboot
 
 ----
 
-## Portainer
+## Portainer and Watchtower
+```
+docker-compose -f adguard.yml up -d
+```
 
 ### Starting Portainer
 _*Running portainer with docker instead of docker-compose will prevent portainer from showing up as an unmanged stack inside itself_
