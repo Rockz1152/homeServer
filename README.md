@@ -32,12 +32,24 @@ Update the `.env` file before bringing up any services
 nano .env
 ```
 
-#### Using docker-compose (Recommended)
+Install using docker-compose (Recommended)
 ```
 docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
-#### Manually
+### Repairing
+- _The default configuration for portainer and watchtower will automatically keep them up-to-date_
+- _If you accidentally remove Portainer or Watchtower, use these commands to repair them_
+```
+cd ~/homeServer
+docker stop portainer
+docker stop watchtower
+docker rm portainer
+docker rm watchtower
+docker-compose -p "portwatch" -f portwatch.yml up -d
+```
+
+#### Manual Installation
 <sup>_*Running Portainer and Watchtower with docker instead of docker-compose will prevent them from showing up as an unmanged stack inside portainer_</sup>
 
 Install Portainer
@@ -64,18 +76,6 @@ containrrr/watchtower \
 --cleanup \
 --include-restarting \
 --label-enable
-```
-
-### Repairing
-_*The default configuration for portainer and watchtower will automatically keep them up-to-date_
-If you accidentally remove Portainer or Watchtower, use these commands to repair them
-```
-cd ~/homeServer
-docker stop portainer
-docker stop watchtower
-docker rm portainer
-docker rm watchtower
-docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
 <!-- old docker run cmd
