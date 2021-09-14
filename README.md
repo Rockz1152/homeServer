@@ -22,7 +22,7 @@ sudo reboot
 
 ## Portainer and Watchtower
 ```
-docker-compose -f adguard.yml up -d
+docker-compose -f portwatch.yml up -d
 ```
 
 ### Starting Portainer
