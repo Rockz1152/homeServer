@@ -29,28 +29,35 @@ services:
       - ${DATADIR}/tautulli:/config
     restart: unless-stopped
 
-  wireguard:
-    image: linuxserver/wireguard
-    container_name: wireguard
-    hostname: wireguard
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
+    network_mode: bridge
+    ports:
+      - 8888:8888/tcp # HTTP proxy
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
+      - 8001:8000/tcp # Built-in HTTP control server
+      - 6881:6881 # qBittorrent
+      - 6881:6881/udp # qBittorrent
+      - 8080:8080 # qBittorrent
+    volumes:
+      - /dockerData/gluetun:/gluetun
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    volumes:
-      - ${DATADIR}/wireguard:/config
-      - /lib/modules:/lib/modules
-    ports:
-      - 51820:51820/udp
-      - 6881:6881 # qBittorrent
-      - 6881:6881/udp # qBittorrent
-      - 8080:8080 # qBittorrent
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
+      - FIREWALL_OUTBOUND_SUBNETS=${GT_FIREWALL_OUTBOUND_SUBNETS}
+      - VPNSP=${GT_VPNSP}
+      - VPN_TYPE=${GT_VPN_TYPE}
+      - CITY=${GT_CITY}
+      - WIREGUARD_PRESHARED_KEY=${GT_WIREGUARD_PRESHARED_KEY}
+      - WIREGUARD_PRIVATE_KEY=${GT_WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_ADDRESS=${GT_WIREGUARD_ADDRESS}
+      - WIREGUARD_ENDPOINT_PORT=${GT_WIREGUARD_ENDPOINT_PORT}
+    restart: always
 
   qbittorrent:
     image: linuxserver/qbittorrent
@@ -69,7 +76,7 @@ services:
       #- 6881:6881
       #- 6881:6881/udp
       #- 8080:8080
-    network_mode: "service:wireguard"
+    network_mode: "service:gluetun"
 
   prowlarr:
     image: hotio/prowlarr:testing
