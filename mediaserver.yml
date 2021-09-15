@@ -76,7 +76,7 @@ services:
       #- 6881:6881
       #- 6881:6881/udp
       #- 8080:8080
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
 
   prowlarr:
     image: hotio/prowlarr:testing
