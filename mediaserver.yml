@@ -10,7 +10,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - VERSION=docker
-      - PLEX_CLAIM=${PLEXCLAIMID}
+      #- PLEX_CLAIM=${PLEXCLAIMID}
     volumes:
       - ${DATADIR}/plex:/config
       - ${MEDIADIR}:/mnt/media
