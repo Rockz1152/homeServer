@@ -46,9 +46,11 @@ docker stop portainer
 docker stop watchtower
 docker rm portainer
 docker rm watchtower
+docker image prune -a -f
 docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
+<!--
 ### Manual Installation
 <sup>_*Running Portainer and Watchtower with docker instead of docker-compose will prevent them from showing up as an unmanged stack inside portainer_</sup>
 
@@ -77,6 +79,7 @@ containrrr/watchtower \
 --include-restarting \
 --label-enable
 ```
+-->
 
 <!-- old docker run cmd
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $(source .env; echo ${DATADIR})/portainer:/data portainer/portainer-ce
@@ -92,19 +95,13 @@ docker-compose -f adguard.yml up -d
 ```
 
 ### Media Server
-
-...
-
+```
+docker-compose -p "mediaserver" -f mediaserver.yml up -d
+```
 - Plex
 - Tautulli
-- qBittorrent-VPN 
-
+- Gluetun
+- qBittorrent
+- Prowlarr
 - Radarr
 - Sonarr
-
-...
-
-----
-
-### Using Portainer
-- "Load variables from .env file"
