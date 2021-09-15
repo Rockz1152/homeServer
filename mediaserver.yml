@@ -92,6 +92,7 @@ services:
     #ports:
       #- 9696:9696
     restart: unless-stopped
+    network_mode: service:gluetun
 
   radarr:
     image: hotio/radarr
@@ -107,6 +108,7 @@ services:
     #ports:
       #- 7878:7878
     restart: unless-stopped
+    network_mode: service:gluetun
 
   sonarr:
     image: hotio/sonarr
@@ -122,3 +124,4 @@ services:
     #ports:
       #- 8989:8989
     restart: unless-stopped
+    network_mode: service:gluetun
