@@ -1,5 +1,17 @@
 # homeServer
 
+## Summary
+
+| Mediaserver contains: | Portwatch contains: | AdGuard contains: |
+|---------------------|-----------------------|-------------------|
+| Plex                | Portainer             | AdGuard Home      |
+| Tautulli            | Watchtower            |
+| Gluetun             |
+| qBittorrent         |
+| Prowlarr            |
+| Radarr              |
+| Sonarr              |
+
 ## Docker Setup
 Install docker
 ```
@@ -26,17 +38,14 @@ Update the `.env` file before bringing up any services
 nano .env
 ```
 
-----
-
 ## Portainer and Watchtower
 _The default configuration for portainer and watchtower will automatically keep them up-to-date_
 ### Installation
-#### Using Docker-Compose
 ```
 docker-compose -p "PortWatch" -f portwatch.yml up -d
 ```
 Repairing
-_If you accidentally remove Portainer or Watchtower, use these commands to repair them_
+- _If you accidentally remove Portainer or Watchtower, use these commands to repair them_
 ```
 cd ~/homeServer
 docker stop portainer
@@ -46,6 +55,7 @@ docker rm watchtower
 docker-compose -p "PortWatch" -f portwatch.yml up -d
 ```
 
+<!--
 #### Using Docker
 Install Portainer
  - _*Running Portainer and Watchtower with docker instead of docker-compose will prevent them from showing up as an unmanged stack inside portainer_
@@ -60,7 +70,8 @@ docker run -d \
 --label "com.centurylinklabs.watchtower.enable=true" \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v $(source .env; echo ${DATADIR})/portainer:/data \
-portainer/portainer-ce
+portainer/portainer-ce \
+--hide-label owner=portainer
 ```
 Install Watchtower
 ```
@@ -75,8 +86,7 @@ containrrr/watchtower \
 --include-restarting \
 --label-enable
 ```
-
-----
+-->
 
 ## Services
 
@@ -91,10 +101,8 @@ docker-compose -p "AdGuard Home" -f adguard.yml up -d
 ```
 docker-compose -p "Mediaserver" -f mediaserver.yml up -d
 ```
-- Plex
-- Tautulli
-- Gluetun
-- qBittorrent
-- Prowlarr
-- Radarr
-- Sonarr
+
+### Using Portainer
+- In Portainer goto Stacks and click `+ Add stck`
+- 
+
