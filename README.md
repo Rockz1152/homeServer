@@ -32,7 +32,7 @@ nano .env
 _The default configuration for portainer and watchtower will automatically keep them up-to-date_
 ### Installation
 ```
-docker-compose -p "portwatch" -f portwatch.yml up -d
+docker-compose -p "PortWatch" -f portwatch.yml up -d
 ```
 
 ### Repairing
@@ -43,7 +43,7 @@ docker stop portainer
 docker stop watchtower
 docker rm portainer
 docker rm watchtower
-docker-compose -p "portwatch" -f portwatch.yml up -d
+docker-compose -p "PortWatch" -f portwatch.yml up -d
 ```
 
 <!--
@@ -87,12 +87,12 @@ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always --priv
 
 ### AdGuard
 ```
-docker-compose -f adguard.yml up -d
+docker-compose -p "AdGuard Home" -f adguard.yml up -d
 ```
 
 ### Media Server
 ```
-docker-compose -p "mediaserver" -f mediaserver.yml up -d
+docker-compose -p "Mediaserver" -f mediaserver.yml up -d
 ```
 - Plex
 - Tautulli
