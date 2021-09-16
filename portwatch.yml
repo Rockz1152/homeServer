@@ -6,9 +6,6 @@ services:
     container_name: portainer
     command: -H unix:///var/run/docker.sock --hide-label owner=portainer
     restart: always
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
     ports:
       - 9000:9000
       - 8000:8000
