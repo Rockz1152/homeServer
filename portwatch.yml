@@ -1,6 +1,21 @@
 version: '2'
 
 services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock --hide-label owner=portainer
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATADIR}/portainer:/data
+    labels:
+      - "owner=portainer"
+      - "com.centurylinklabs.watchtower.enable=true"
+
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower
@@ -13,18 +28,5 @@ services:
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_INCLUDE_RESTARTING=true
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-
-  portainer:
-    image: portainer/portainer-ce
-    container_name: portainer
-    command: -H unix:///var/run/docker.sock
-    restart: always
-    ports:
-      - 9000:9000
-      - 8000:8000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATADIR}/portainer:/data
-    labels:
+      - "owner=portainer"
       - "com.centurylinklabs.watchtower.enable=true"
