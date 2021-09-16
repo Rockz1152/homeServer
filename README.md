@@ -21,7 +21,7 @@ sudo reboot
 ----
 
 ## Portainer and Watchtower
-
+_The default configuration for portainer and watchtower will automatically keep them up-to-date_
 ### Installation
 Clone the repo
 ```
@@ -38,8 +38,7 @@ docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
 ### Repairing
-- _The default configuration for portainer and watchtower will automatically keep them up-to-date_
-- _If you accidentally remove Portainer or Watchtower, use these commands to repair them_
+_If you accidentally remove Portainer or Watchtower, use these commands to repair them_
 ```
 cd ~/homeServer
 docker stop portainer
