@@ -4,9 +4,6 @@ services:
     container_name: adguard
     image: adguard/adguardhome:latest
     restart: unless-stopped
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
     ports:
       - "53:53/tcp"
       - "53:53/udp"
