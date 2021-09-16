@@ -17,12 +17,6 @@ Reboot the server to complete installation
 ```
 sudo reboot
 ```
-
-----
-
-## Portainer and Watchtower
-_The default configuration for portainer and watchtower will automatically keep them up-to-date_
-### Installation
 Clone the repo
 ```
 cd ~/ && git clone https://github.com/Rockz1152/homeServer.git && cd homeServer
@@ -32,7 +26,11 @@ Update the `.env` file before bringing up any services
 nano .env
 ```
 
-Install using docker-compose (Recommended)
+----
+
+## Portainer and Watchtower
+_The default configuration for portainer and watchtower will automatically keep them up-to-date_
+### Installation
 ```
 docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
@@ -45,7 +43,6 @@ docker stop portainer
 docker stop watchtower
 docker rm portainer
 docker rm watchtower
-docker image prune -a -f
 docker-compose -p "portwatch" -f portwatch.yml up -d
 ```
 
