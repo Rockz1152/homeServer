@@ -17,10 +17,6 @@
 ```
 sudo apt install -y docker.io docker-compose
 ```
-Enable docker service
-```
-sudo systemctl enable docker && sudo systemctl start docker && systemctl status --no-pager docker
-```
 Add your user to the Docker group
 ```
 sudo usermod -aG docker $(whoami)
