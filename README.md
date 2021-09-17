@@ -13,7 +13,8 @@
 | Sonarr              |
 
 ## Docker Setup
-<!-- Debian maintained version, does not support rootless
+<!-- Debian maintained version, does not support rootless -->
+Install Docker
 ```
 sudo apt install -y docker.io docker-compose
 ```
@@ -21,7 +22,10 @@ Add your user to the Docker group
 ```
 sudo usermod -aG docker $(whoami)
 ```
--->
+Reboot the server to complete installation
+```
+sudo reboot
+```
 
 <!-- Install script for Raspian
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -29,6 +33,7 @@ sudo sh get-docker.sh
 -->
 
 
+<!-- Docker-ce, supports rootless, buggy
 ### Install Docker
 Install prerequisites
 ```
@@ -79,10 +84,12 @@ echo 'export PATH=/usr/bin:$PATH' >> ~/.bashrc
 echo "export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock" >> ~/.bashrc
 source ~/.bashrc
 ```
+-->
 <!-- docker socket can by found using:
 $XDG_RUNTIME_DIR/docker.sock
 export DOCKER_HOST=unix:///run/user/1000/docker.sock
 -->
+<!--
 Configure services
 ```
 systemctl --user start docker
@@ -91,8 +98,8 @@ systemctl --user enable docker
 ```
 sudo loginctl enable-linger $(whoami)
 ```
-
 ### Finish Setup
+-->
 Clone the repo
 ```
 cd ~/ && git clone https://github.com/Rockz1152/homeServer.git && cd homeServer
