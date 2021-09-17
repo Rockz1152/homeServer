@@ -66,6 +66,16 @@ Run the setup script
 ```
 /usr/bin/dockerd-rootless-setuptool.sh install
 ```
+Update .bashrc
+```
+echo 'export PATH=/usr/bin:$PATH' >> ~/.bashrc
+echo "export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock" >> ~/.bashrc
+source ~/.bashrc
+```
+<!-- docker socket can by found using:
+$XDG_RUNTIME_DIR/docker.sock
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+-->
 Configure services
 ```
 systemctl --user start docker
@@ -76,10 +86,7 @@ sudo loginctl enable-linger $(whoami)
 ```
 
 
-$XDG_RUNTIME_DIR/docker.sock 
 
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
-export PATH=/usr/bin:$PATH
 
 
 ### Finish Setup
