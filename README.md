@@ -54,6 +54,9 @@ sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io doc
 ```
 Add your user to the Docker group
 ```
+sudo groupadd docker
+```
+```
 sudo usermod -aG docker $(whoami)
 ```
 Reboot the server to complete installation
