@@ -48,6 +48,7 @@ services:
       - 8989:8989 # Sonarr
     volumes:
       - ${DATADIR}/gluetun:/gluetun
+      - /dev/net/tun:/dev/net/tun
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
