@@ -52,6 +52,14 @@ Update apt and install Docker
 ```
 sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose
 ```
+Add your user to the Docker group
+```
+sudo usermod -aG docker $(whoami)
+```
+Reboot the server to complete installation
+```
+sudo reboot
+```
 
 ### Setup Rootless
 Install dependencies
@@ -85,15 +93,7 @@ systemctl --user enable docker
 sudo loginctl enable-linger $(whoami)
 ```
 
-
-
-
-
 ### Finish Setup
-Reboot the server to complete installation
-```
-sudo reboot
-```
 Clone the repo
 ```
 cd ~/ && git clone https://github.com/Rockz1152/homeServer.git && cd homeServer
