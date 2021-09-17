@@ -43,7 +43,7 @@ echo \
 ```
 Update apt and install Docker
 ```
-sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose
 ```
 
 ### Setup Rootless
@@ -55,12 +55,18 @@ Disable system-wide docker
 ```
 sudo systemctl disable --now docker.service docker.sock
 ```
-
+Run the setup script
+```
 /usr/bin/dockerd-rootless-setuptool.sh install
-
+```
+Configure services
+```
 systemctl --user start docker
 systemctl --user enable docker
+```
+```
 sudo loginctl enable-linger $(whoami)
+```
 
 
 $XDG_RUNTIME_DIR/docker.sock 
