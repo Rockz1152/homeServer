@@ -13,7 +13,7 @@
 | Sonarr              |
 
 ## Docker Setup
-Install docker
+### Install Docker
 ```
 sudo apt install -y docker.io docker-compose
 ```
@@ -25,6 +25,30 @@ Add your user to the Docker group
 ```
 sudo usermod -aG docker $(whoami)
 ```
+### Setup Rootless
+Install dependencies
+```
+sudo apt install -y uidmap dbus-user-session fuse-overlayfs slirp4netns
+```
+Disable system-wide docker
+```
+sudo systemctl disable --now docker.service docker.sock
+```
+
+/usr/bin/dockerd-rootless-setuptool.sh install
+
+systemctl --user start docker
+systemctl --user enable docker
+sudo loginctl enable-linger $(whoami)
+
+
+$XDG_RUNTIME_DIR/docker.sock 
+
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export PATH=/usr/bin:$PATH
+
+
+### Finish Setup
 Reboot the server to complete installation
 ```
 sudo reboot
