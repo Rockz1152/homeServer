@@ -26,6 +26,13 @@ Add your user to the Docker group
 sudo usermod -aG docker $(whoami)
 ```
 -->
+
+<!-- Install script for Raspian
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+-->
+
+
 ### Install Docker
 Install prerequisites
 ```
