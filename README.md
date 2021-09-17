@@ -163,14 +163,15 @@ containrrr/watchtower \
 
 ### Using Docker-Compose
 
+#### Media Server
+_*Make sure you fill in all the directory paths in the .env file or the stack will fail to start_
+```
+docker-compose -p "Mediaserver" -f mediaserver.yml up -d
+```
+
 #### AdGuard
 ```
 docker-compose -p "AdGuard Home" -f adguard.yml up -d
-```
-
-#### Media Server
-```
-docker-compose -p "Mediaserver" -f mediaserver.yml up -d
 ```
 
 ### Using Portainer
