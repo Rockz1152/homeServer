@@ -15,19 +15,6 @@ services:
       - ${DATADIR}/plex:/config
       - ${MEDIADIR}:/mnt/media
     restart: unless-stopped
-    
-  tautulli:
-    image: linuxserver/tautulli
-    container_name: tautulli
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    ports:
-      - 8181:8181
-    volumes:
-      - ${DATADIR}/tautulli:/config
-    restart: unless-stopped
 
   gluetun:
     image: qmcgaw/gluetun
