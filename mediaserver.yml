@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     
   tautulli:
-    image: tautulli/tautulli
+    image: linuxserver/tautulli
     container_name: tautulli
     environment:
       - PUID=${PUID}
@@ -97,7 +97,7 @@ services:
     network_mode: service:gluetun
 
   radarr:
-    image: hotio/radarr
+    image: linuxserver/radarr
     container_name: radarr
     environment:
       - PUID=${PUID}
@@ -113,7 +113,7 @@ services:
     network_mode: service:gluetun
 
   sonarr:
-    image: hotio/sonarr
+    image: linuxserver/sonarr
     container_name: sonarr
     environment:
       - PUID=${PUID}
