@@ -5,8 +5,7 @@
 | Mediaserver contains: | Portwatch contains: | AdGuard contains: |
 |---------------------|-----------------------|-------------------|
 | Plex                | Portainer             | AdGuard Home      |
-| Tautulli            | Watchtower            |
-| Gluetun             |
+| Gluetun             | Watchtower            |
 | qBittorrent         |
 | Prowlarr            |
 | Radarr              |
