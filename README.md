@@ -114,7 +114,9 @@ _The default configuration for portainer and watchtower will automatically keep 
 ```
 docker-compose -p "PortWatch" -f portwatch.yml up -d
 ```
-Repairing
+Note: Portwainer and Watchtower are both flagged to be hidden to help prevent accidental stops or removals
+
+#### Repairing
 - _If you accidentally remove Portainer or Watchtower, use these commands to repair them_
 ```
 cd ~/homeServer
