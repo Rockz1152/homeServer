@@ -15,7 +15,7 @@ services:
       #- ${XDG_RUNTIME_DIR}/docker.sock:/var/run/docker.sock
       - ${DATADIR}/portainer:/data
     labels:
-      #- "owner=portainer"
+      - "owner=portainer"
       - "com.centurylinklabs.watchtower.enable=true"
 
   watchtower:
@@ -31,5 +31,5 @@ services:
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_INCLUDE_RESTARTING=true
     labels:
-      #- "owner=portainer"
+      - "owner=portainer"
       - "com.centurylinklabs.watchtower.enable=true"
