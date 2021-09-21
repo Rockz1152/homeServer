@@ -165,7 +165,7 @@ containrrr/watchtower \
 ### Using Docker-Compose
 
 #### Media Server
-_*Make sure you fill in all the directory paths in the .env file or the stack will fail to start_
+_*Make sure you fill in all the directory paths in the .env file and ensure they are created or the stack will fail to start_
 ```
 docker-compose -p "Mediaserver" -f mediaserver.yml up -d
 ```
@@ -176,10 +176,6 @@ docker-compose -p "AdGuard Home" -f adguard.yml up -d
 ```
 
 ### Using Portainer
-:warning: **Warning**
-
-**Portainer has issues parsing .env files that contain public and private keys that Wireguard uses. Wait until after you've loaded the .env file and use the web editor to enter the correct values**
-
 - In Portainer goto Stacks and click `+ Add stack`
 - Give the stack a name. e.g. `Mediaserver`
 - Paste the contents of the .yml file into the web editor
