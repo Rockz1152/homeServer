@@ -5,7 +5,6 @@ services:
     image: portainer/portainer-ce
     container_name: portainer
     command: -H unix:///var/run/docker.sock --hide-label owner=portainer
-    #command: --hide-label owner=portainer
     restart: always
     ports:
       - 9000:9000
