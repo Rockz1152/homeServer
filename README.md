@@ -40,6 +40,7 @@ LXC Requirements
   - Use `sudo useradd -s /usr/bin/bash -G sudo -m -u 1000 <username>` to create one if needed
     - This creates a user with a UID and GID of "1000", creates a home folder, sets their shell to bash, and adds them to the sudo group
   - Set a password for the new user `passwd <username>`
+- Connect with SSH to your server with your user to continue
 
 Create the following folder structure on the drive or network locations where you will be keeping your media and configs
 
@@ -521,7 +522,12 @@ Sonarr
 ## Bazarr
 Port: `6767`
 
+> [!NOTE]
+> This section is a work-in-progress
+
 Bazarr integrates with Sonarr and Radarr to download subtitles
+
+- Create a free account at https://www.opensubtitles.com
 
 https://www.youtube.com/watch?v=8vZ95HOdT-I&t=56s
 
