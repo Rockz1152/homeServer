@@ -27,7 +27,7 @@ Requirements
 - At least 20 GBs disk space needed
 - 2 GBs of RAM
 
-LXC Requirements
+LXC Container Requirements
 
 - Skip this section if you are installing on a VM or bare metal
 - For LXC containers, pass-through the following devices:
@@ -38,7 +38,8 @@ LXC Requirements
   - Use `sudo useradd -s /usr/bin/bash -G sudo -m -u 1000 <username>` to create one if needed
     - This creates a user with a UID and GID of "1000", creates a home folder, sets their shell to bash, and adds them to the sudo group
   - Set a password for the new user `passwd <username>`
-- Connect with SSH to your server with your user to continue
+
+Once you have a user established, connect with SSH to your server
 
 Create the following folder structure on the drive or network locations where you will be keeping your media and configs
 
@@ -66,13 +67,13 @@ mkdir -p data/media/{movies,shows}
 ```
 
 > [!NOTE]
-> Ensure your user is the owner of data directory and it's sub folders.
+> Ensure your user is the owner of the data directory and it's sub folders.
 >
 > You may need to use `sudo chown <username>:<username> -R data` to take ownership of the files.
 >
 > Use `ls -la` to verify ownership.
 >
-> If the folders "jellyfin-cache" and "jellyfin-config" are not owned by your user Jellyfin will fail to start.
+> If the folders "jellyfin-cache" and "jellyfin-config" are not owned by your user, Jellyfin will fail to start.
 
 ## Dockhand
 Install docker
@@ -80,7 +81,7 @@ Install docker
 curl -fsSL https://get.docker.com | sudo sh
 ```
 
-Install Dockhand to simplify stack management
+Install Dockhand to simplify container management
 ```
 sudo docker run -d \
   --name dockhand \
@@ -91,7 +92,7 @@ sudo docker run -d \
   fnsys/dockhand:latest
 ```
 
-Visit your server IP address at port `3000` to open the web interface
+Visit your server IP address on port `3000` to open the web interface
 
 ### Dockhand Environments
 Click `Go to Settings` to configure your local environment
@@ -358,7 +359,7 @@ Setup Download Client
 - Fill in Username and Password for qBittorrent's WebUI
 - Click `Test` and then `Save`
 
-Setup a Quality Profile
+Set Quality Settings
 
 - Settings > Custom Formats > [+]
 - Name: `Standard Movie Size`
