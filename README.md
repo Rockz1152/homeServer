@@ -1,13 +1,11 @@
 # Media Server
 
-<!--
 ## Resources
 - https://www.youtube.com/watch?v=LV3mcfqNgcQ
   - https://thomaswildetech.com/blog/2025/10/30/jellyfin---setting-up-the-entire-stack/
 - https://www.youtube.com/watch?v=QfpZcXXGpVA
 - https://www.youtube.com/watch?v=twJDyoj0tDc
 - https://github.com/TRaSH-Guides/Guides
--->
 
 ## Introduction
 
@@ -343,9 +341,10 @@ Setup Media Folders
 - Movie Naming
   - Enable `Rename Movies`
   - Colon Replacement: `Delete`
-  - Standard Movie Format
-    - Paste the string below:
-    - `{Movie.CleanTitle}{.Release.Year}{.Edition.Tags}{.MediaInfo VideoCodec}{.Quality.Full}{-Release Group}`
+  - Standard Movie Format - Copy and paste the following:
+```
+{Movie.CleanTitle}{.Release.Year}{.Edition.Tags}{.MediaInfo VideoCodec}{.Quality.Full}{-Release Group}
+```
 - File Management
   - Enable `Unmonitor Deleted Movies`
 - Root Folders
@@ -411,9 +410,10 @@ Setup Media Folders
 - Episode Naming
   - Enable `Rename Episodes`
   - Colon Replacement: `Delete`
-  - Standard Episode Format
-    - Paste the string below:
-    - `{Series.CleanTitleYear}.S{season:00}E{episode:00}.{Episode.CleanTitle}.{MediaInfo VideoCodec}.{Quality.Full}`
+  - Standard Episode Format - Copy and paste the following:
+```
+{Series.CleanTitleYear}.S{season:00}E{episode:00}.{Episode.CleanTitle}.{MediaInfo VideoCodec}.{Quality.Full}
+```
   - Series Folder Format
     - Set to `{Series TitleYear}`
 - File Management
