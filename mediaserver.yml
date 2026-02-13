@@ -1,19 +1,19 @@
-version: "2.1"
+---
 
 services:
-  plex:
-    image: linuxserver/plex
-    container_name: plex
-    hostname: plex
-    network_mode: host
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - VERSION=docker
-      #- PLEX_CLAIM=${PLEXCLAIMID}
+  jellyfin:
+    image: ghcr.io/jellyfin/jellyfin
+    container_name: jellyfin
+    user: ${PUID}:${PGID}
+    ports:
+      - 8096:8096/tcp
     volumes:
-      - ${DATADIR}/plex:/config
-      - ${MEDIADIR}:/mnt/media
+      - ${DATA_DIR}/config/jellyfin-config:/config
+      - ${DATA_DIR}/config/jellyfin-cache:/cache
+      - ${DATA_DIR}:/data
+    environment:
+      - TZ=${TIMEZONE}
+      - /dev/dri:/dev/dri
     restart: unless-stopped
 
   gluetun:
@@ -21,96 +21,165 @@ services:
     container_name: gluetun
     cap_add:
       - NET_ADMIN
-    network_mode: bridge
-    ports:
-      - 8888:8888/tcp # HTTP proxy
-      - 8388:8388/tcp # Shadowsocks
-      - 8388:8388/udp # Shadowsocks
-      - 8001:8000/tcp # Built-in HTTP control server
-      - 6881:6881 # qBittorrent
+    devices:
+      - /dev/net/tun
+    ports: # Expose qBittorrent's web UI and torrent ports through VPN
+      - 8080:8080     # qBittorrent Web UI
+      - 6881:6881     # qBittorrent
       - 6881:6881/udp # qBittorrent
-      - 8080:8080 # qBittorrent
-      - 9696:9696 # Prowlarr
-      - 7878:7878 # Radarr
-      - 8989:8989 # Sonarr
+      - 9696:9696     # Prowlarr
+      - 8191:8191     # FlareSolverr
+      - 7878:7878     # Radarr
+      - 8989:8989     # Sonarr
+      - 6767:6767     # Bazarr
+      # - 8096:8096   # Jellyfin
+      # - 5055:5055   # Jellyseerr
     volumes:
-      - ${DATADIR}/gluetun:/gluetun
-      - /dev/net/tun:/dev/net/tun
+      - ${DATA_DIR}/config/gluetun:/gluetun
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - VPN_TYPE=wireguard
-      - FIREWALL_OUTBOUND_SUBNETS=${FIREWALL_OUTBOUND_SUBNETS}
-      - VPNSP=${VPNSP}
-      - CITY=${CITY}
-      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
-      - WIREGUARD_PUBLIC_KEY=${WIREGUARD_PUBLIC_KEY}
-      - WIREGUARD_PRESHARED_KEY=${WIREGUARD_PRESHARED_KEY}
-      - WIREGUARD_ADDRESS=${WIREGUARD_ADDRESS}
-      - WIREGUARD_ENDPOINT_PORT=${WIREGUARD_ENDPOINT_PORT}
-    restart: always
+      - TZ=${TIMEZONE}
+      - VPN_TYPE=openvpn
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SERVER_REGIONS=${SERVER_REGIONS}
+      # - FIREWALL_VPN_INPUT_PORTS=${FIREWALL_VPN_INPUT_PORTS} # if you have port forwarding enabled
+      # - VPN_PORT_FORWARDING=on # Private Internet Access or ProtonVPN only
+    restart: unless-stopped
 
   qbittorrent:
-    image: linuxserver/qbittorrent
+    image: ghcr.io/linuxserver/qbittorrent
     container_name: qbittorrent
+    network_mode: "service:gluetun" # Routes all traffic through Gluetun
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 8080:8080
+    #   - 6881:6881
+    #   - 6881:6881/udp
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TZ}
+      - TZ=${TIMEZONE}
       - WEBUI_PORT=8080
+      - WEBUI_ADDRESS=0.0.0.0
+      - WEBUI_EXTERNAL_ACCESS=true
     volumes:
-      - ${DATADIR}/qbittorrent:/config
-      - ${DOWNLOADSDIR}:/downloads
+      - ${DATA_DIR}/config/qbittorrent:/config
+      - ${DATA_DIR}:/data
     restart: unless-stopped
-    #ports:
-      #- 6881:6881
-      #- 6881:6881/udp
-      #- 8080:8080
-    network_mode: service:gluetun
 
   prowlarr:
-    image: hotio/prowlarr:testing
+    image: ghcr.io/linuxserver/prowlarr
     container_name: prowlarr
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 9696:9696
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TZ}
+      - TZ=${TIMEZONE}
     volumes:
-      - ${DATADIR}/prowlarr:/config
-    #ports:
-      #- 9696:9696
+      - ${DATA_DIR}/config/prowlarr:/config
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr
+    container_name: flaresolverr
+    network_mode: "service:gluetun"
+    environment:
+      - TZ=${TIMEZONE}
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 8191:8191
+    volumes:
+      - ${DATA_DIR}/config/flaresolverr:/config
     restart: unless-stopped
-    network_mode: service:gluetun
 
   radarr:
-    image: linuxserver/radarr
+    image: ghcr.io/linuxserver/radarr
     container_name: radarr
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 7878:7878
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TZ}
+      - TZ=${TIMEZONE}
     volumes:
-      - ${DATADIR}/radarr:/config
-      - ${MEDIADIR}/movies:/movies
-      - ${DOWNLOADSDIR}:/downloads
-    #ports:
-      #- 7878:7878
-    restart: unless-stopped
-    network_mode: service:gluetun
+      - ${DATA_DIR}/config/radarr:/config
+      - ${DATA_DIR}:/data
 
   sonarr:
-    image: linuxserver/sonarr
+    image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 8989:8989
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TZ}
+      - TZ=${TIMEZONE}
     volumes:
-      - ${DATADIR}/sonarr:/config
-      - ${MEDIADIR}/shows:/tv
-      - ${DOWNLOADSDIR}:/downloads
-    #ports:
-      #- 8989:8989
+      - ${DATA_DIR}/config/sonarr:/config
+      - ${DATA_DIR}:/data
+
+  jellyseerr:
+    image: ghcr.io/fallenbagel/jellyseerr
+    init: true
+    container_name: jellyseerr
+    environment:
+      - TZ=${TIMEZONE}
+      - LOG_LEVEL=info
+    ports:
+      - 5055:5055
+    volumes:
+      - ${DATA_DIR}/config/jellyseerr:/app/config
     restart: unless-stopped
-    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+      - jellyfin
+      - prowlarr
+      - sonarr
+      - radarr
+
+  bazarr:
+    image: ghcr.io/linuxserver/bazarr
+    container_name: bazarr
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 6767:6767
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${DATA_DIR}/config/bazarr:/config
+      - ${DATA_DIR}:/data
+
+  samba:
+    image: ghcr.io/dockur/samba
+    container_name: samba
+    environment:
+      - UID=${PUID}
+      - GID=${PGID}
+      - NAME=${SMB_SHARE}
+      - USER=${SMB_USER}
+      - PASS=${SMB_PASS}
+    ports:
+      - 445:445
+    volumes:
+      - ${DATA_DIR}:/storage
+    restart: unless-stopped
