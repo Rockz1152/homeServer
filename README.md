@@ -120,11 +120,15 @@ sudo docker pull ghcr.io/dockur/samba;
 
 Keeping images up-to-date
 
-- Coming in Dockhand 1.0.16
+- Coming in Dockhand 1.0.16: https://github.com/Finsys/dockhand/issues/67
 - For now, just run the above commands manually and restart the stack
+- Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain indexer functionality
 
 ### Update Dockhand
-While Dockhand supports updating images for other containers, it cannot update itself. These commands will stop, update, prune, and start Dockhand.
+
+- Self update coming in 1.0.14: https://github.com/Finsys/dockhand/issues/220
+
+These commands will stop, update, prune, and start Dockhand.
 ```
 sudo docker stop dockhand; \
 sudo docker image prune -f -a; \
