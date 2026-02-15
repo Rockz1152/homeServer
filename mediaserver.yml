@@ -33,7 +33,7 @@ services:
       - 8989:8989     # Sonarr
       - 6767:6767     # Bazarr
       # - 8096:8096   # Jellyfin
-      # - 5055:5055   # Jellyseerr
+      # - 5055:5055   # Seerr
     volumes:
       - ${DATA_DIR}/config/gluetun:/gluetun
     environment:
@@ -133,17 +133,17 @@ services:
       - ${DATA_DIR}/config/sonarr:/config
       - ${DATA_DIR}:/data
 
-  jellyseerr:
-    image: ghcr.io/fallenbagel/jellyseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr
     init: true
-    container_name: jellyseerr
+    container_name: seerr
     environment:
       - TZ=${TIMEZONE}
       - LOG_LEVEL=info
     ports:
       - 5055:5055
     volumes:
-      - ${DATA_DIR}/config/jellyseerr:/app/config
+      - ${DATA_DIR}/config/seerr:/app/config
     restart: unless-stopped
     depends_on:
       - gluetun
