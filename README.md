@@ -103,23 +103,7 @@ Click `Go to Settings` to configure your local environment
 - Click `+ Add`
 - Lastly click `Test all`
 
-### Update Dockhand
-While Dockhand supports updating images for other containers, it cannot update itself. These commands will stop, update, prune, and start Dockhand.
-```
-sudo docker stop dockhand; \
-sudo docker pull fnsys/dockhand; \
-sudo docker image prune -f -a; \
-sudo docker start dockhand;
-```
-
-## Gluetun
-Visit https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers and select your VPN provider
-
-- You'll need to login to your VPN's web interface to retrieve Open VPN credentials and location data
-- Save this info in order to prepare your environment file in Dockhand
-
-## Building the Stack
-
+### Manage Images
 Pre-pull docker images to speed up building the stack
 ```
 sudo docker pull ghcr.io/jellyfin/jellyfin; \
@@ -134,7 +118,27 @@ sudo docker pull ghcr.io/fallenbagel/jellyseerr; \
 sudo docker pull ghcr.io/dockur/samba;
 ```
 
-### Deploy the stack
+Keeping images up-to-date
+
+- Coming in Dockhand 1.0.16
+- For now, just run the above commands manually and restart the stack
+
+### Update Dockhand
+While Dockhand supports updating images for other containers, it cannot update itself. These commands will stop, update, prune, and start Dockhand.
+```
+sudo docker stop dockhand; \
+sudo docker image prune -f -a; \
+sudo docker pull fnsys/dockhand:latest; \
+sudo docker start dockhand;
+```
+
+## Gluetun
+Visit https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers and select your VPN provider
+
+- You'll need to login to your VPN's web interface to retrieve Open VPN credentials and location data
+- Save this info in order to prepare your environment file in Dockhand
+
+## Building the Stack
 Go to Stacks and select `+ Create`
 
 - Give your stack a name at the top
