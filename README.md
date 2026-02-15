@@ -233,12 +233,27 @@ After logging in, you should set your own password
 
 - Tools > Options > WebUI
 - Set a new Username and Password
-- Don't forget to scroll to the bottom of the page and click `Save` every time you make a change
+- Don't forget to scroll to the bottom of each page in qBittorrent's settings and click `Save` every time you make a change
 
-Set Default Download Location
+Configure Downloads
 
 - Tools > Options > Downloads
-- Set "Default Save Path" to `/data/downloads`
+- Set Default Download Location
+  - Set "Default Save Path" to `/data/downloads`
+- Block Bad File Types
+  - Check `Excluded file names` and paste the following in the box underneath
+```
+*.exe
+*.jar
+*.lnk
+*.zip
+*.arj
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.gz
+```
 
 Configure Bandwidth
 
