@@ -13,7 +13,7 @@ This media stack contains the following applications
 
 - Dockhand - Dockhand a utility that helps automate the updating and management of your docker containers
 - Jellyfin - A free, open-source media server that organizes your movies and TV shows and streams them to all your devices
-- Jellyseer - A request management tool that lets you browse a "Netflix-style" interface to request new content be added to your library
+- Seer - A request management tool that lets you browse a "Netflix-style" interface to request new content be added to your library
 - Gluetun - A VPN client in a container to securely route traffic from other apps through a VPN
 - qBittorrent - A lightweight, open-source BitTorrent client for downloading and managing torrents
 - Prowlarr - An indexer manager that connects your download apps to various torrent and Usenet sites, syncing all those "search locations" in one central place.
@@ -114,7 +114,7 @@ sudo docker pull ghcr.io/flaresolverr/flaresolverr; \
 sudo docker pull ghcr.io/linuxserver/radarr; \
 sudo docker pull ghcr.io/linuxserver/sonarr; \
 sudo docker pull ghcr.io/linuxserver/bazarr; \
-sudo docker pull ghcr.io/fallenbagel/jellyseerr; \
+sudo docker pull ghcr.io/seerr-team/seerr; \
 sudo docker pull ghcr.io/dockur/samba;
 ```
 
@@ -480,14 +480,14 @@ Prefer Season Packs
   - Set "Season Pack" score to `10`
   - Click `Save`
 
-## Jellyseer
+## Seer
 Port: `5055`
 
-Welcome to Jellyseerr
+Welcome to Seerr
 
 - Select `Configure Jellyfin`
 - For "Jellyfin URL", just enter `jellyfin`
-- Enter an email address followed by your Jellyfin credentials
+- Enter an email address followed by your login for Jellyfin
 - Click `Sign in`
 - Click `Sync Libraries`
   - Toggle on `Movies` and `Shows`
