@@ -2,7 +2,6 @@
 
 ## Table of Contents
 
-1. [Resources](#resources)
 1. [Introduction](#introduction)
 1. [Server Setup](#server-setup)
 1. [Dockhand](#dockhand)
@@ -17,13 +16,6 @@
 1. [Bazarr](#bazarr)
 1. [Samba](#samba)
 
-## Resources
-- https://www.youtube.com/watch?v=LV3mcfqNgcQ
-  - https://thomaswildetech.com/blog/2025/10/30/jellyfin---setting-up-the-entire-stack/
-- https://www.youtube.com/watch?v=QfpZcXXGpVA
-- https://www.youtube.com/watch?v=twJDyoj0tDc
-- https://github.com/TRaSH-Guides/Guides
-
 ## Introduction
 
 This media stack contains the following applications
@@ -37,6 +29,14 @@ This media stack contains the following applications
 - Radarr - A utility for locating Movies within your indexer and sending the request to your download application
 - Sonarr - Same as Radarr but for TV Shows
 - Samba - This allows network access to the media library and container configs
+
+### Additional Resources
+- https://www.youtube.com/watch?v=LV3mcfqNgcQ
+  - https://thomaswildetech.com/blog/2025/10/30/jellyfin---setting-up-the-entire-stack/
+- https://www.youtube.com/watch?v=QfpZcXXGpVA
+- https://www.youtube.com/watch?v=twJDyoj0tDc
+- https://github.com/TRaSH-Guides/Guides
+
 
 ## Server Setup
 
