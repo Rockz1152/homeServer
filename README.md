@@ -5,7 +5,6 @@
 1. [Introduction](#introduction)
 1. [Server Setup](#server-setup)
 1. [Dockhand](#dockhand)
-1. [Gluetun](#gluetun)
 1. [Building the Stack](#building-the-stack)
 1. [Jellyfin](#jellyfin)
 1. [qBittorrent](#qbittorrent)
@@ -25,7 +24,7 @@ This media stack contains the following applications
 - Seer - A request management tool that lets you browse a "Netflix-style" interface to request new content be added to your library
 - Gluetun - A VPN client in a container to securely route traffic from other apps through a VPN
 - qBittorrent - A lightweight, open-source BitTorrent client for downloading and managing torrents
-- Prowlarr - An indexer manager that connects your download apps to various torrent and Usenet sites, syncing all those "search locations" in one central place.
+- Prowlarr - An indexer manager that connects your download apps to various torrent and Usenet sites, syncing all those "search locations" in one central place
 - Radarr - A utility for locating Movies within your indexer and sending the request to your download application
 - Sonarr - Same as Radarr but for TV Shows
 - Bazarr - Integrates with Sonarr and Radarr to download subtitles for Movies and Shows
@@ -155,12 +154,6 @@ sudo docker start dockhand;
 sudo docker image prune -f -a; \
 ```
 
-## Gluetun
-Visit https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers and select your VPN provider
-
-- You'll need to login to your VPN's web interface to retrieve Open VPN credentials and location data
-- Save this info in order to prepare your environment file in Dockhand
-
 ## Building the Stack
 Go to Stacks and select `+ Create`
 
@@ -169,6 +162,14 @@ Go to Stacks and select `+ Create`
   - e.g. `media-server`
 - Paste your compose file in the left side of the window
   - This is the contents of `mediaserver.yml`
+
+Gluetun - VPN
+
+- Visit https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers and select your VPN provider
+- Depending on your provider, you may need to login to your VPN's web interface to retrieve Open VPN credentials and location data
+  - For "Private Internet Access" you just use your current Username and Password
+  - For "Windscribe" you'll need to login online and generate OpenVPN credentials
+- Save this info in order to prepare your environment file in Dockhand next
 
 Fill in your `.env` file
 
