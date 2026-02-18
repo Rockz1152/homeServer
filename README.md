@@ -19,6 +19,7 @@ This media stack contains the following applications
 - Prowlarr - An indexer manager that connects your download apps to various torrent and Usenet sites, syncing all those "search locations" in one central place.
 - Radarr - A utility for locating Movies within your indexer and sending the request to your download application
 - Sonarr - Same as Radarr but for TV Shows
+- Samba - This allows network access to the media library and container configs
 
 ## Server Setup
 
@@ -168,6 +169,9 @@ Fill in your `.env` file
 
 Once you're ready, click the `Create & Start` button to deploy
 
+> [!NOTE]
+> The first time you start the stack it may produce an error in Dockhand. You may have to stop and start the stack once or twice for it to finish creating directories before it will start and stop without error.
+
 - Run `sudo journalctl --unit docker -f` on the server to monitor for errors
 - Startup time can vary from 1 to 3 minutes depending on hardware
 
@@ -293,7 +297,7 @@ Port: `9696`
 
 Create login information
 
-- Set "Authentication Method" to `Forms (Login Page)
+- Set "Authentication Method" to `Forms (Login Page)`
 - Set a value for Username and Password then click `Save`
 
 Disable Telemetry
@@ -462,7 +466,76 @@ Set Quality Settings
 |------------------|----------|----------------|----------|
 | SD/DVD/480p      | 4        | 15             | 20       |
 | 720p             | 4        | 22             | 26       |
-| 1080p            | 5        | 33             | 45       |
+| 1080p            | 5        | 33             | 40       |
+
+
+### Setup Custom Formats
+
+Prefer Season Packs
+
+- Navigate to Settings > Custom Formats > [+]
+- Click `Import` in the bottom left and paste the following
+```
+{
+  "name": "Season Pack",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Season Packs",
+      "implementation": "ReleaseTypeSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": 3
+      }
+    },
+    {
+      "name": "x264 or x265",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(((x|h)\\.?265)|(HEVC))"
+      }
+    }
+  ]
+}
+```
+- Click `Import` and `Save`
+
+Require x264/x265 Codec
+
+- Navigate back to > Custom Formats > [+]
+- Click `Import` in the bottom left and paste the following
+```
+{
+  "name": "Required Codec",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "x264 or x265",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(((x|h)\\.?265)|(HEVC))"
+      }
+    }
+  ]
+}
+```
+- Click `Import` and `Save`
+
+Apply Custom Formats
+
+- Navigate to Settings > Profiles
+- For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
+  - Set "Minimum Custom Format Score" to `5`
+  - Set "Required Codec" score to `5`
+  - Set "Season Pack" score to `10`
+  - Click `Save`
+
+<!-- Previous Custom Formats
 
 Prefer Season Packs
 
@@ -490,10 +563,45 @@ Prefer Season Packs
   ]
 }
 ```
-- Click `Save` and then navigate to Settings > Profiles
+- Click `Import` and `Save`
+
+Require x264/x265 codec
+
+- Navigate back to > Custom Formats > [+]
+- Click `Import` in the bottom left and paste the following
+```
+{
+  "name": "Require x264/x265 Codec",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Check for x264 or x265",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(((x|h)\\.?(264|265))|(HEVC))"
+      }
+    }
+  ]
+}
+```
+- Click `Import` and `Save`
+
+Apply Custom Formats
+
+- Navigate to Settings > Profiles
 - For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
+  - Set "Minimum Custom Format Score" to `15`
+  - Set "Season Pack" score to `10`
   - Set "Season Pack" score to `10`
   - Click `Save`
+
+Minimum Score: 15
+x264/x265: 10
+Season Pack: 5
+
+-->
 
 ## Seer
 Port: `5055`
@@ -563,7 +671,7 @@ To connect to the shared folder enter: `\\192.168.0.2\Data` in Windows Explorer,
 > [!NOTE]
 > Replace the example IP address above with that of your host.
 
-For Macintosh use `smb://server/share`
+For Macintosh or Linux use `smb://server/share`
 
 <!-- future add-ons
 Tdarr - Convert media and never worry about file sizes
