@@ -1,5 +1,22 @@
 # Media Server
 
+## Table of Contents
+
+1. [Resources](#resources)
+1. [Introduction](#introduction)
+1. [Server Setup](#server-setup)
+1. [Dockhand](#dockhand)
+1. [Gluetun](#gluetun)
+1. [Building the Stack](#building-the-stack)
+1. [Jellyfin](#jellyfin)
+1. [qBittorrent](#qbittorrent)
+1. [Prowlarr](#prowlarr)
+1. [Radarr](#radarr)
+1. [Sonarr](#sonarr)
+1. [Seerr](#seerr)
+1. [Bazarr](#bazarr)
+1. [Samba](#samba)
+
 ## Resources
 - https://www.youtube.com/watch?v=LV3mcfqNgcQ
   - https://thomaswildetech.com/blog/2025/10/30/jellyfin---setting-up-the-entire-stack/
@@ -306,14 +323,6 @@ Disable Telemetry
 - Uncheck `Send Anonymous Usage Data`
 - Click `Save Changes` at the top
 
-<!-- This is required for new releases
-Disable RSS
-
-- Settings > Apps > Sync Profiles > Standard
-- Uncheck `Enable RSS`
-- Click `Save`
--->
-
 Configure Minimum Seeders
 
 - Settings > Apps > Sync Profiles > Standard
@@ -388,25 +397,49 @@ Setup Download Client
 
 Set Quality Settings
 
-- Settings > Custom Formats > [+]
-- Name: `Standard Movie Size`
-- Setup a Size condition
-  - Condition > [+] > Size
-  - Name: `Size`
-  - Minimum Size: `.7`
-  - Maximum Size: `4`
-  - Check `Required` and click `Save`
+- Navigate to Settings > Custom Formats > [+]
+- Click `Import` in the bottom left and paste the following
+```
+{
+  "name": "Standard Size & Codec",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Size",
+      "implementation": "SizeSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "min": 0.7,
+        "max": 4
+      }
+    },
+    {
+      "name": "x264 or x265",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(((x|h)\\\\.?265)|(HEVC))"
+      }
+    }
+  ]
+}
+```
+- Click `Import` and `Save`
+- Settings > Profiles
+- For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
+  - Minimum Custom Format Score: `10`
+  - Set "Standard Size & Codec" score to `10`
+  - Uncheck any Quality that includes "Remux"
+  - Click `Save`
+
+<!--
 - Optionally setup a codec condition (if you strictly only want an x264 or x265 release)
   - Condition > [+] > Release Title > Presets
   - Select x264 or x265 depending on you preference
   - Check `Required` and click `Save`
-- Click `Save`
-- Settings > Profiles
-- For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
-  - Minimum Custom Format Score: `10`
-  - Set "Standard Movie Size" score to `10`
-  - Uncheck any Quality that includes "Remux"
-  - Click `Save`
+-->
 
 ## Sonarr
 Port: `8989`
@@ -603,7 +636,7 @@ Season Pack: 5
 
 -->
 
-## Seer
+## Seerr
 Port: `5055`
 
 Welcome to Seerr
@@ -665,7 +698,10 @@ https://www.youtube.com/watch?v=8vZ95HOdT-I&t=56s
 
 https://wiki.bazarr.media/Getting-Started/Setup-Guide/
 
-## SMB Network Share
+## Samba
+
+- Samba creates an SMB Network Share
+
 To connect to the shared folder enter: `\\192.168.0.2\Data` in Windows Explorer, then enter your configured Username and Password.
 
 > [!NOTE]
