@@ -28,14 +28,16 @@ This media stack contains the following applications
 - Prowlarr - An indexer manager that connects your download apps to various torrent and Usenet sites, syncing all those "search locations" in one central place.
 - Radarr - A utility for locating Movies within your indexer and sending the request to your download application
 - Sonarr - Same as Radarr but for TV Shows
+- Bazarr - Integrates with Sonarr and Radarr to download subtitles for Movies and Shows
 - Samba - This allows network access to the media library and container configs
 
 ### Additional Resources
-- https://www.youtube.com/watch?v=LV3mcfqNgcQ
+- Setup Guide from Thomas Wilde - https://www.youtube.com/watch?v=LV3mcfqNgcQ
   - https://thomaswildetech.com/blog/2025/10/30/jellyfin---setting-up-the-entire-stack/
-- https://www.youtube.com/watch?v=QfpZcXXGpVA
-- https://www.youtube.com/watch?v=twJDyoj0tDc
-- https://github.com/TRaSH-Guides/Guides
+- Setup Guide from KL Tech - https://www.youtube.com/watch?v=QfpZcXXGpVA
+- Setup Guide from TechHut - https://www.youtube.com/watch?v=twJDyoj0tDc
+- Bazarr Setup Guide from AlienTech42 - https://www.youtube.com/watch?v=8vZ95HOdT-I
+- Guides for Quality Profiles - https://github.com/TRaSH-Guides/Guides
 
 ## Server Setup
 
@@ -353,7 +355,7 @@ Port: `7878`
 
 Create login information
 
-- Set "Authentication Method" to `Forms (Login Page)
+- Set "Authentication Method" to `Forms (Login Page)`
 - Set a value for Username and Password then click `Save`
 
 Disable Telemetry
@@ -381,6 +383,8 @@ Setup Media Folders
 ```
 {Movie.CleanTitle}{.Release.Year}{.Edition.Tags}{.MediaInfo VideoCodec}{.Quality.Full}{-Release Group}
 ```
+- Importing
+  - Enable `Import Extra Files`
 - File Management
   - Enable `Unmonitor Deleted Movies`
 - Root Folders
@@ -468,7 +472,7 @@ Port: `8989`
 
 Create login information
 
-- Set "Authentication Method" to `Forms (Login Page)
+- Set "Authentication Method" to `Forms (Login Page)`
 - Set a value for Username and Password then click `Save`
 
 Disable Telemetry
@@ -499,6 +503,8 @@ Setup Media Folders
 ```
   - Series Folder Format
     - Set to `{Series TitleYear}`
+- Importing
+  - Enable `Import Extra Files`
 - File Management
   - Enable `Unmonitor Deleted Episodes`
 - Root Folders
@@ -591,7 +597,6 @@ Apply Custom Formats
   - Click `Save`
 
 <!-- Previous Custom Formats
-
 Prefer Season Packs
 
 - Source: https://trash-guides.info/Sonarr/sonarr-collection-of-custom-formats/#season-pack
@@ -668,7 +673,7 @@ Welcome to Seerr
 - Enter an email address followed by your login for Jellyfin
 - Click `Sign in`
 - Click `Sync Libraries`
-  - Toggle on `Movies` and `Shows`
+  - Enable `Movies` and `Shows`
 - Click `Start Scan`
 - Scroll to the bottom and click `Continue`
 
@@ -709,22 +714,108 @@ Sonarr
 ## Bazarr
 Port: `6767`
 
-> [!NOTE]
-> This section is a work-in-progress
+Create login information
 
-Bazarr integrates with Sonarr and Radarr to download subtitles
+- Under "Security" set "Authentication Method" to `Form`
+- Set a value for Username and Password, scroll to the top and then click `Save`
 
-- Create a free account at https://www.opensubtitles.com
+Disable Telemetry
 
-https://www.youtube.com/watch?v=8vZ95HOdT-I&t=56s
+- Settings > General > Analytics
+- Toggle off `Enable`
+- Click `Save` at the top
 
-https://wiki.bazarr.media/Getting-Started/Setup-Guide/
+Configure Languages
+
+- Settings > Languages
+- Look for "Languages Filter" under "Subtitles Language" and add `English`
+- Under "Languages Profile" click `Add New Profile`
+  - Name: `English`
+  - Click `Add Language`
+    - Set "Subtitles Type" to `Forced (foreign part only)`
+  - Click `Add Language` again
+    - Set "Subtitles Type" to `Normal or hearing-impaired`
+  - Cutoff: `en`
+  - Click `Save`
+- Scroll to the bottom and look for "Default Language Profiles For Newly Added Shows"
+  - Enable `Series` and `Movies`
+  - Set the profile to `English` for both
+- Scroll to the top and click `Save`
+
+Setup Providers
+
+- Settings > Providers
+- Under "Enabled Providers" click [+]
+- Add the following providers, clicking `Enable` after selecting it from the list
+  - `TVsubtitles`
+  - `YIFY Subtitles`
+  - `Gestdown (Addic7ed proxy)`
+  - `Wizdom`
+- (Optional) Select `OpenSubtitles.com`
+  - This requires a free account at https://www.opensubtitles.com
+  - Fill in your Username and Password for OpenSubtitles.com and click `Enable`
+- At the top, click `Save`
+
+Configure Subtitles
+
+- Settings > Subtitles
+- Under "Upgrading Subtitles", disable `Upgrade Manually Downloaded or Translated Subtitles`
+- Under "Sub-Zero Subtitle Content Modifications" enable the following:
+  - `Remove Tags`
+  - `Remove Emoji`
+  - `OCR Fixes`
+  - `Common Fixes`
+  - `Fix Uppercase`
+- Under "Audio Synchronization / Alignment", enable `Automatic Subtitles Audio Synchronization`
+  - Enable both `Series Score Threshold For Audio Sync` and `Movies Score Threshold For Audio Sync`
+  - For "Series Score Threshold For Audio Sync" set it to `90`
+  - For "Movies Score Threshold For Audio Sync" set it to `85`
+- Scroll to the top and click `Save`
+
+Connect to Sonarr
+
+- Settings > Sonarr
+- Enable Sonarr
+- Under host, set Address to `gluetun`
+- Retrieve your Sonarr API key
+  - In Sonarr go to Settings > General > Security
+  - Copy the `API Key`
+  - Go back to Bazarr and paste the Key under `API Key`
+- Click `Test` which should return the version of the Sonarr server
+- Scroll to the top and click `Save`
+- Under "Options"
+  - Enable `Download Only Monitored`
+  - Enable `Exclude season zero (extras)`
+- Under "Path Mappings" click `Add`
+  - Sonar: `/data/media/shows/`
+  - Bazarr `/data/media/shows/`
+- Scroll to the top and click `Save`
+
+Connect to Radarr
+
+- Settings > Radarr
+- Enable Radarr
+- Under host, set Address to `gluetun`
+- Retrieve your Radarr API key
+  - In Radarr go to Settings > General > Security
+  - Copy the `API Key`
+  - Go back to Bazarr and paste the Key under `API Key`
+- Click `Test` which should return the version of the Radarr server
+- Scroll to the top and click `Save`
+- Under "Options" enable `Download Only Monitored`
+- Under "Path Mappings" click `Add`
+  - Radarr: `/data/media/movies/`
+  - Bazarr `/data/media/movies/`
+- Scroll to the top and click `Save`
+
+Search for Missing Subtitles
+
+- To see missing subtitles, on the left under "Wanted" click either `Episodes` or `Movies`
+- At the top of each list click `Search All`
+- Subtitles will be saved with the media
 
 ## Samba
-
-- Samba creates an SMB Network Share
-
-To connect to the shared folder enter: `\\192.168.0.2\Data` in Windows Explorer, then enter your configured Username and Password.
+To connect to the network share, enter: `\\192.168.0.2\Data` in Windows Explorer and then enter the configured Username and Password you set in the environment file
 
 > [!NOTE]
 > Replace the example IP address above with that of your host.
