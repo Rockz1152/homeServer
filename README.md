@@ -37,7 +37,6 @@ This media stack contains the following applications
 - https://www.youtube.com/watch?v=twJDyoj0tDc
 - https://github.com/TRaSH-Guides/Guides
 
-
 ## Server Setup
 
 Requirements
@@ -139,7 +138,7 @@ sudo docker pull ghcr.io/dockur/samba;
 Keeping images up-to-date
 
 - Coming in Dockhand 1.0.16: https://github.com/Finsys/dockhand/issues/67
-- For now, just run the above commands manually and restart the stack
+- For now, just run the above commands manually then stop and start the stack
 - Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain indexer functionality
 
 ### Update Dockhand
@@ -149,9 +148,9 @@ Keeping images up-to-date
 These commands will stop, update, prune, and start Dockhand.
 ```
 sudo docker stop dockhand; \
-sudo docker image prune -f -a; \
 sudo docker pull fnsys/dockhand:latest; \
 sudo docker start dockhand;
+sudo docker image prune -f -a; \
 ```
 
 ## Gluetun
