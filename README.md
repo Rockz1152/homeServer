@@ -397,10 +397,11 @@ Setup Download Client
 Set Quality Settings
 
 - Navigate to Settings > Custom Formats > [+]
-- Click `Import` in the bottom left and paste the following
+- Import the "Standard Size x264" format
+  - Click `Import` in the bottom left and paste the following, followed by `Import` and `Save`
 ```
 {
-  "name": "Standard Size & Codec",
+  "name": "Standard Size x264",
   "includeCustomFormatWhenRenaming": false,
   "specifications": [
     {
@@ -414,31 +415,53 @@ Set Quality Settings
       }
     },
     {
-      "name": "x264 or x265",
+      "name": "x264",
       "implementation": "ReleaseTitleSpecification",
       "negate": false,
       "required": true,
       "fields": {
-        "value": "(((x|h)\\\\.?265)|(HEVC))"
+        "value": "(x|h)\\.?264"
       }
     }
   ]
 }
 ```
-- Click `Import` and `Save`
-- Settings > Profiles
+- Import the "Standard Size x265" format
+  - Click `Import` in the bottom left and paste the following, followed by `Import` and `Save`
+```
+{
+  "name": "Standard Size x265",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Size",
+      "implementation": "SizeSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "min": 0.7,
+        "max": 4
+      }
+    },
+    {
+      "name": "x265",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(((x|h)\\.?265)|(HEVC))"
+      }
+    }
+  ]
+}
+```
+- To set the score for these profiles, navigate to Settings > Profiles
 - For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
   - Minimum Custom Format Score: `10`
-  - Set "Standard Size & Codec" score to `10`
+  - Set "Standard Size x264" score to `20`
+  - Set "Standard Size x265" score to `10`
   - Uncheck any Quality that includes "Remux"
   - Click `Save`
-
-<!--
-- Optionally setup a codec condition (if you strictly only want an x264 or x265 release)
-  - Condition > [+] > Release Title > Presets
-  - Select x264 or x265 depending on you preference
-  - Check `Required` and click `Save`
--->
 
 ## Sonarr
 Port: `8989`
