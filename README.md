@@ -711,8 +711,12 @@ Disable Telemetry
 Configure Languages
 
 - Settings > Languages
-- Look for "Languages Filter" under "Subtitles Language" and add `English`
-- Under "Languages Profile" click `Add New Profile`
+- Subtitles Language
+  - Under "Languages Filter" add `English`
+- Embedded Tracks Language
+  - Set "Treat unknown language embedded subtitles track as" to `English`
+- Languages Profile"
+  - Click `Add New Profile`
   - Name: `English`
   - Click `Add Language`
     - Set "Subtitles Type" to `Forced (foreign part only)`
