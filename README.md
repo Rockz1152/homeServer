@@ -11,8 +11,8 @@
 1. [Prowlarr](#prowlarr)
 1. [Radarr](#radarr)
 1. [Sonarr](#sonarr)
-1. [Seerr](#seerr)
 1. [Bazarr](#bazarr)
+1. [Seerr](#seerr)
 1. [Samba](#samba)
 
 ## Introduction
@@ -646,54 +646,6 @@ Apply Custom Formats to Profiles
   - Set "x265" score to `10`
   - Click `Save`
 
-## Seerr
-Port: `5055`
-
-Welcome to Seerr
-
-- Select `Configure Jellyfin`
-- For "Jellyfin URL", just enter `jellyfin`
-- Enter an email address followed by your login for Jellyfin
-- Click `Sign in`
-- Click `Sync Libraries`
-  - Enable `Movies` and `Shows`
-- Click `Start Scan`
-- Scroll to the bottom and click `Continue`
-
-### Configure Services
-
-Radarr
-
-- Click `+ Add Radarr Server`
-- Check `Default Server`
-- Server Name: `Radarr`
-- Hostname or IP Address: Enter your docker server IP Address
-- API Key
-  - In Radarr go to Settings > General > Security
-  - Copy the `API Key`
-  - Go back to Jellyseer and paste the Key
-- Scroll to the bottom and click `Test`
-- Quality Profile: `HD-1080p`
-- Root Folder: `/date/media/movies`
-- Click `Add Server`
-
-Sonarr
-
-- Click `+ Add Sonarr Server`
-- Check `Default Server`
-- Server Name: `Sonarr`
-- Hostname or IP Address: Enter your docker server IP Address
-- API Key
-  - In Sonarr go to Settings > General > Security
-  - Copy the `API Key`
-  - Go back to Jellyseer and paste the Key
-- Scroll to the bottom and click `Test`
-- Quality Profile: `HD-720p`
-- Root Folder: `/date/media/shows`
-- Check `Season Folders`
-- Click `Add Server`
-- Click `Finish Setup`
-
 ## Bazarr
 Port: `6767`
 
@@ -805,6 +757,54 @@ Search for Missing Subtitles
 - To see missing subtitles, on the left under "Wanted" click either `Episodes` or `Movies`
 - At the top of each list click `Search All`
 - Subtitles will be saved with the media
+
+## Seerr
+Port: `5055`
+
+Welcome to Seerr
+
+- Select `Configure Jellyfin`
+- For "Jellyfin URL", just enter `jellyfin`
+- Enter an email address followed by your login for Jellyfin
+- Click `Sign in`
+- Click `Sync Libraries`
+  - Enable `Movies` and `Shows`
+- Click `Start Scan`
+- Scroll to the bottom and click `Continue`
+
+### Configure Services
+
+Radarr
+
+- Click `+ Add Radarr Server`
+- Check `Default Server`
+- Server Name: `Radarr`
+- Hostname or IP Address: Enter your docker server IP Address
+- API Key
+  - In Radarr go to Settings > General > Security
+  - Copy the `API Key`
+  - Go back to Jellyseer and paste the Key
+- Scroll to the bottom and click `Test`
+- Quality Profile: `HD-1080p`
+- Root Folder: `/date/media/movies`
+- Click `Add Server`
+
+Sonarr
+
+- Click `+ Add Sonarr Server`
+- Check `Default Server`
+- Server Name: `Sonarr`
+- Hostname or IP Address: Enter your docker server IP Address
+- API Key
+  - In Sonarr go to Settings > General > Security
+  - Copy the `API Key`
+  - Go back to Jellyseer and paste the Key
+- Scroll to the bottom and click `Test`
+- Quality Profile: `HD-720p`
+- Root Folder: `/date/media/shows`
+- Check `Season Folders`
+- Click `Add Server`
+- Click `Finish Setup`
 
 ## Samba
 To connect to the network share, enter: `\\192.168.0.2\Data` in Windows Explorer and then enter the configured Username and Password you set in the environment file
