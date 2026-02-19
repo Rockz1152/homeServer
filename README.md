@@ -540,11 +540,11 @@ RegEx for x264 and x265
 Import Custom Format Presets
 
 - Navigate to Settings > Custom Formats > [+]
-- Follow these steps for each preset listed after
+- Follow these steps for each preset listed below
   - Click `Import` in the bottom left
   - Paste the JSON for the preset
   - Click `Import` and then click `Save`
-- Season Pack x264
+- Preset: Season Pack x264
 ```
 {
   "name": "Season Pack x264",
@@ -571,7 +571,7 @@ Import Custom Format Presets
   ]
 }
 ```
-- Season Pack x265
+- Preset: Season Pack x265
 ```
 {
   "name": "Season Pack x265",
@@ -598,7 +598,7 @@ Import Custom Format Presets
   ]
 }
 ```
-- x264
+- Preset: x264
 ```
 {
   "name": "x264",
@@ -616,7 +616,7 @@ Import Custom Format Presets
   ]
 }
 ```
-- x265
+- Preset: x265
 ```
 {
   "name": "x265",
