@@ -746,14 +746,19 @@ Setup Providers
 Configure Subtitles
 
 - Settings > Subtitles
-- Under "Upgrading Subtitles", disable `Upgrade Manually Downloaded or Translated Subtitles`
-- Under "Sub-Zero Subtitle Content Modifications" enable the following:
+- Subtitle File Options
+  - Set "Hearing-impaired subtitles extension" to `.sdh`
+- Upgrading Subtitles
+  - Disable `Upgrade Manually Downloaded or Translated Subtitles`
+- Sub-Zero Subtitle Content Modifications
+  - Enable the following:
   - `Remove Tags`
   - `Remove Emoji`
   - `OCR Fixes`
   - `Common Fixes`
   - `Fix Uppercase`
-- Under "Audio Synchronization / Alignment", enable `Automatic Subtitles Audio Synchronization`
+- Audio Synchronization / Alignment
+  - Enable `Automatic Subtitles Audio Synchronization`
   - Enable both `Series Score Threshold For Audio Sync` and `Movies Score Threshold For Audio Sync`
   - For "Series Score Threshold For Audio Sync" set it to `90`
   - For "Movies Score Threshold For Audio Sync" set it to `85`
