@@ -532,14 +532,22 @@ Set Quality Settings
 
 
 ### Setup Custom Formats
+<!--
+RegEx for x264 and x265
+(((x|h)\\.?(264|265))|(HEVC))
+-->
 
-Prefer Season Packs
+Import Custom Format Presets
 
 - Navigate to Settings > Custom Formats > [+]
-- Click `Import` in the bottom left and paste the following
+- Follow these steps for each preset listed after
+  - Click `Import` in the bottom left
+  - Paste the JSON for the preset
+  - Click `Import` and then click `Save`
+- Season Pack x264
 ```
 {
-  "name": "Season Pack",
+  "name": "Season Pack x264",
   "includeCustomFormatWhenRenaming": false,
   "specifications": [
     {
@@ -552,64 +560,21 @@ Prefer Season Packs
       }
     },
     {
-      "name": "x264 or x265",
+      "name": "x264",
       "implementation": "ReleaseTitleSpecification",
       "negate": false,
       "required": true,
       "fields": {
-        "value": "(((x|h)\\.?265)|(HEVC))"
+        "value": "(x|h)\\.?264"
       }
     }
   ]
 }
 ```
-- Click `Import` and `Save`
-
-Require x264/x265 Codec
-
-- Navigate back to > Custom Formats > [+]
-- Click `Import` in the bottom left and paste the following
+- Season Pack x265
 ```
 {
-  "name": "Required Codec",
-  "includeCustomFormatWhenRenaming": false,
-  "specifications": [
-    {
-      "name": "x264 or x265",
-      "implementation": "ReleaseTitleSpecification",
-      "negate": false,
-      "required": true,
-      "fields": {
-        "value": "(((x|h)\\.?265)|(HEVC))"
-      }
-    }
-  ]
-}
-```
-- Click `Import` and `Save`
-
-Apply Custom Formats
-
-- Navigate to Settings > Profiles
-- For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
-  - Set "Minimum Custom Format Score" to `5`
-  - Set "Required Codec" score to `5`
-  - Set "Season Pack" score to `10`
-  - Click `Save`
-
-<!-- Previous Custom Formats
-Prefer Season Packs
-
-- Source: https://trash-guides.info/Sonarr/sonarr-collection-of-custom-formats/#season-pack
-- Navigate to Settings > Custom Formats > [+]
-- Click `Import` in the bottom left and paste the following
-```
-{
-  "trash_id": "3bc5f395426614e155e585a2f056cdf1",
-  "trash_scores": {
-    "default": 10
-  },
-  "name": "Season Pack",
+  "name": "Season Pack x265",
   "includeCustomFormatWhenRenaming": false,
   "specifications": [
     {
@@ -620,49 +585,66 @@ Prefer Season Packs
       "fields": {
         "value": 3
       }
-    }
-  ]
-}
-```
-- Click `Import` and `Save`
-
-Require x264/x265 codec
-
-- Navigate back to > Custom Formats > [+]
-- Click `Import` in the bottom left and paste the following
-```
-{
-  "name": "Require x264/x265 Codec",
-  "includeCustomFormatWhenRenaming": false,
-  "specifications": [
+    },
     {
-      "name": "Check for x264 or x265",
+      "name": "x265",
       "implementation": "ReleaseTitleSpecification",
       "negate": false,
       "required": true,
       "fields": {
-        "value": "(((x|h)\\.?(264|265))|(HEVC))"
+        "value": "(((x|h)\\.?265)|(HEVC))"
       }
     }
   ]
 }
 ```
-- Click `Import` and `Save`
+- x264
+```
+{
+  "name": "x264",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "x264",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(x|h)\\.?264"
+      }
+    }
+  ]
+}
+```
+- x265
+```
+{
+  "name": "x265",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "x265",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "(((x|h)\\.?265)|(HEVC))"
+      }
+    }
+  ]
+}
+```
 
-Apply Custom Formats
+Apply Custom Formats to Profiles
 
 - Navigate to Settings > Profiles
 - For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
-  - Set "Minimum Custom Format Score" to `15`
-  - Set "Season Pack" score to `10`
-  - Set "Season Pack" score to `10`
+  - Set "Minimum Custom Format Score" to `10`
+  - Set "Season Pack x264" score to `40`
+  - Set "Season Pack x265" score to `30`
+  - Set "x264" score to `20`
+  - Set "x265" score to `10`
   - Click `Save`
-
-Minimum Score: 15
-x264/x265: 10
-Season Pack: 5
-
--->
 
 ## Seerr
 Port: `5055`
