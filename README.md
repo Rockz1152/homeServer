@@ -462,9 +462,9 @@ Set Quality Settings
 ```
 - To set the score for these profiles, navigate to Settings > Profiles
 - For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
-  - Minimum Custom Format Score: `10`
-  - Set "Standard Size x264" score to `20`
-  - Set "Standard Size x265" score to `10`
+  - Minimum Custom Format Score: `100`
+  - Set "Standard Size x264" score to `200`
+  - Set "Standard Size x265" score to `100`
   - Uncheck any Quality that includes "Remux"
   - Click `Save`
 
@@ -639,11 +639,11 @@ Apply Custom Formats to Profiles
 
 - Navigate to Settings > Profiles
 - For each of the following profiles: "HD-720p/1080p, HD-720p, HD-1080p", do the following:
-  - Set "Minimum Custom Format Score" to `10`
-  - Set "Season Pack x264" score to `40`
-  - Set "Season Pack x265" score to `30`
-  - Set "x264" score to `20`
-  - Set "x265" score to `10`
+  - Set "Minimum Custom Format Score" to `100`
+  - Set "Season Pack x264" score to `400`
+  - Set "Season Pack x265" score to `300`
+  - Set "x264" score to `200`
+  - Set "x265" score to `100`
   - Click `Save`
 
 ## Bazarr
@@ -815,5 +815,7 @@ To connect to the network share, enter: `\\192.168.0.2\Data` in Windows Explorer
 For Macintosh or Linux use `smb://server/share`
 
 <!-- future add-ons
+Buildarr - Automate setup?
+- https://buildarr.github.io/
 Tdarr - Convert media and never worry about file sizes
 -->
