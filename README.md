@@ -783,7 +783,7 @@ Radarr
 - API Key
   - In Radarr go to Settings > General > Security
   - Copy the `API Key`
-  - Go back to Jellyseer and paste the Key
+  - Go back to Seerr and paste the Key
 - Scroll to the bottom and click `Test`
 - Quality Profile: `HD-1080p`
 - Root Folder: `/date/media/movies`
@@ -798,7 +798,7 @@ Sonarr
 - API Key
   - In Sonarr go to Settings > General > Security
   - Copy the `API Key`
-  - Go back to Jellyseer and paste the Key
+  - Go back to Seerr and paste the Key
 - Scroll to the bottom and click `Test`
 - Quality Profile: `HD-720p`
 - Root Folder: `/date/media/shows`
