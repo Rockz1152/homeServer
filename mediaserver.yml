@@ -133,6 +133,23 @@ services:
       - ${DATA_DIR}/config/sonarr:/config
       - ${DATA_DIR}:/data
 
+  bazarr:
+    image: ghcr.io/linuxserver/bazarr
+    container_name: bazarr
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 6767:6767
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${DATA_DIR}/config/bazarr:/config
+      - ${DATA_DIR}:/data
+
   seerr:
     image: ghcr.io/seerr-team/seerr
     init: true
@@ -151,23 +168,6 @@ services:
       - prowlarr
       - sonarr
       - radarr
-
-  bazarr:
-    image: ghcr.io/linuxserver/bazarr
-    container_name: bazarr
-    restart: unless-stopped
-    network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    # ports:
-    #   - 6767:6767
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${DATA_DIR}/config/bazarr:/config
-      - ${DATA_DIR}:/data
 
   samba:
     image: ghcr.io/dockur/samba
