@@ -382,7 +382,7 @@ Setup Media Folders
   - Colon Replacement: `Delete`
   - Standard Movie Format - Copy and paste the following:
 ```
-{Movie.CleanTitle}{.Release.Year}{.Edition.Tags}{.MediaInfo VideoCodec}{.Quality.Full}{-Release Group}
+{Movie.CleanTitle}{.Release.Year}{.Edition.Tags}{.MediaInfo VideoCodec}{.Quality.Full}{.Release Group}
 ```
 - Importing
   - Enable `Import Extra Files`
