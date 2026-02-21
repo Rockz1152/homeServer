@@ -377,6 +377,7 @@ Setup Media Folders
 
 - Navigate back to Radarr
 - Settings > Media Management
+- Click `Show Advanced` in the top bar
 - Movie Naming
   - Enable `Rename Movies`
   - Colon Replacement: `Delete`
@@ -665,6 +666,7 @@ Configure Languages
 - Settings > Languages
 - Subtitles Language
   - Under "Languages Filter" add `English`
+- Click `Save` at the top
 - Embedded Tracks Language
   - Set "Treat unknown language embedded subtitles track as" to `English`
 - Languages Profile"
@@ -690,7 +692,7 @@ Setup Providers
   - `YIFY Subtitles`
   - `Gestdown (Addic7ed proxy)`
   - `Wizdom`
-- (Optional) Select `OpenSubtitles.com`
+- (Optional but recommended) Select `OpenSubtitles.com`
   - This requires a free account at https://www.opensubtitles.com
   - Fill in your Username and Password for OpenSubtitles.com and click `Enable`
 - At the top, click `Save`
@@ -815,7 +817,8 @@ To connect to the network share, enter: `\\192.168.0.2\Data` in Windows Explorer
 For Macintosh or Linux use `smb://server/share`
 
 <!-- future add-ons
-Buildarr - Automate setup?
-- https://buildarr.github.io/
+Homer - A dashboard to easily get to all services?
 Tdarr - Convert media and never worry about file sizes
+
+sudo docker stop $(sudo docker ps -a -q)
 -->
