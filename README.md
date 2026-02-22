@@ -43,7 +43,7 @@ This media stack contains the following applications
 Requirements
 
 - At least 20 GBs disk space needed
-- 2 GBs of RAM
+- At least 8 GBs of RAM
 
 LXC Container Requirements
 
@@ -138,21 +138,35 @@ sudo docker pull ghcr.io/dockur/samba;
 
 Keeping images up-to-date
 
-- Coming in Dockhand 1.0.16: https://github.com/Finsys/dockhand/issues/67
-- For now, just run the above commands manually then stop and start the stack
+- Work-in-progress: https://github.com/Finsys/dockhand/issues/67
+- For now, just run the above commands then manually stop and start the stack
 - Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain indexer functionality
+
+<!--
+- Containers tab
+  - Click `Check for updates` to see if there are any image updates available
+- Stacks tab
+  - Click `Pull images and restart`
+- Images tab
+  - Click `Prune unused` and confirm
+  - This removes the old images to save disk space on the server
+- Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain functionality
+-->
 
 ### Update Dockhand
 
-- Self update coming in 1.0.14: https://github.com/Finsys/dockhand/issues/220
-
-These commands will stop, update, prune, and start Dockhand.
+These commands will stop, update, prune, and start Dockhand
 ```
 sudo docker stop dockhand; \
 sudo docker pull fnsys/dockhand:latest; \
 sudo docker start dockhand;
 sudo docker image prune -f -a; \
 ```
+
+<!--
+- Open the containers tab and click `Check for updates`
+- If an update for Dockhand is available, click `Update containers`
+-->
 
 ## Building the Stack
 Go to Stacks and select `+ Create`
@@ -529,7 +543,7 @@ Set Quality Settings
 |------------------|----------|----------------|----------|
 | SD/DVD/480p      | 4        | 15             | 20       |
 | 720p             | 4        | 22             | 26       |
-| 1080p            | 5        | 33             | 40       |
+| 1080p            | 5        | 25             | 33       |
 
 
 ### Setup Custom Formats
