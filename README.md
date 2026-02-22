@@ -363,6 +363,18 @@ Add Indexers
   - Privacy: `Public`
 - After configuring an indexer, click `Test` and then `Save`
 
+Connect to qBittorrent
+
+- _*This only allows torrents searched within Prowlarr to be sent for download, this does not automatically integrate downloads into Radarr and Sonarr_
+- Settings > Download Clients
+- Click [+] and select `qBittorrent`
+- Enter your qBittorrent Username and Password
+- Click `Test` and then `Save`
+- You can now use the "Search" tab to search all indexers and download if necessary
+  - After locating a torrent, check the box next to it and select `Grab Release(s)` at the bottom
+  - Downloads performed through Prowlarr will remain in the downloads directory and must be manually removed from qBittorrent and moved to the media library
+  - You must also manually import the media in Radarr or Sonarr
+
 It's time to connect the Apps
 
 ## Radarr
@@ -830,7 +842,12 @@ To connect to the network share, enter: `\\192.168.0.2\Data` in Windows Explorer
 
 For Macintosh or Linux use `smb://server/share`
 
-<!-- future add-ons
+<!--
+## Troublshooting
+episode downloads not being manaaged or monitored correctly in Sonarr
+- Stop and start the stack in dockhand and then check invalid downloads in activity
+
+## future add-ons
 Homer - A dashboard to easily get to all services?
 Tdarr - Convert media and never worry about file sizes
 
