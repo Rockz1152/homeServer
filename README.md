@@ -138,20 +138,13 @@ sudo docker pull ghcr.io/dockur/samba;
 
 Keeping images up-to-date
 
-- Work-in-progress: https://github.com/Finsys/dockhand/issues/67
-- For now, just run the above commands then manually stop and start the stack
-- Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain indexer functionality
-
-<!--
-- Containers tab
-  - Click `Check for updates` to see if there are any image updates available
-- Stacks tab
-  - Click `Pull images and restart`
-- Images tab
-  - Click `Prune unused` and confirm
+- On the Containers tab, click `Check for updates` to see if there are any image updates available
+- If updates are available go to the Stacks tab, under Actions for your stack select the square `Stop` button and confirm
+- Back on the Containers tab, click `Update all` and wait for the images to update
+- Back to on the Stacks tab, under Actions click the `Play` button to start the stack and wait for it to finish
+- After all the containers are back up, go to the Images tab and click `Prune unused` and confirm
   - This removes the old images to save disk space on the server
 - Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain functionality
--->
 
 ### Update Dockhand
 
@@ -159,8 +152,8 @@ These commands will stop, update, prune, and start Dockhand
 ```
 sudo docker stop dockhand; \
 sudo docker pull fnsys/dockhand:latest; \
-sudo docker start dockhand;
-sudo docker image prune -f -a; \
+sudo docker start dockhand; \
+sudo docker image prune -f -a;
 ```
 
 <!--
@@ -843,11 +836,15 @@ To connect to the network share, enter: `\\192.168.0.2\Data` in Windows Explorer
 For Macintosh or Linux use `smb://server/share`
 
 <!--
-## Troublshooting
+## Troubleshooting
 episode downloads not being manaaged or monitored correctly in Sonarr
 - Stop and start the stack in dockhand and then check invalid downloads in activity
 
 ## future add-ons
+Profilarr - High Quality Profiles but massive media sizes
+- https://www.youtube.com/watch?v=u1FQNMsuzFc
+- https://www.youtube.com/watch?v=TFG6A1d2C2c
+- https://github.com/Dictionarry-Hub/database
 Homer - A dashboard to easily get to all services?
 Tdarr - Convert media and never worry about file sizes
 
