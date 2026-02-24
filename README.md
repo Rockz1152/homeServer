@@ -19,16 +19,16 @@
 
 This media stack contains the following applications
 
-- Dockhand - Dockhand a utility that helps automate the updating and management of your docker containers
+- Dockhand - A utility that helps with management of your docker containers
 - Jellyfin - A free, open-source media server that organizes your movies and TV shows and streams them to all your devices
 - Seer - A request management tool that lets you browse a "Netflix-style" interface to request new content be added to your library
 - Gluetun - A VPN client in a container to securely route traffic from other apps through a VPN
 - qBittorrent - A lightweight, open-source BitTorrent client for downloading and managing torrents
 - Prowlarr - An indexer manager that connects your download apps to various torrent and Usenet sites, syncing all those "search locations" in one central place
-- Radarr - A utility for locating Movies within your indexer and sending the request to your download application
+- Radarr - A utility for locating Movies within your indexer and sending the requests to your download application
 - Sonarr - Same as Radarr but for TV Shows
 - Bazarr - Integrates with Sonarr and Radarr to download subtitles for Movies and Shows
-- Samba - This allows network access to the media library and container configs
+- Samba - This allows network access to the media library and container configs using the SMB/CIFS protocol
 
 ### Additional Resources
 - Setup Guide from Thomas Wilde - https://www.youtube.com/watch?v=LV3mcfqNgcQ
@@ -121,8 +121,38 @@ Click `Go to Settings` to configure your local environment
 - Click `+ Add`
 - Lastly click `Test all`
 
-### Manage Images
-Pre-pull docker images to speed up building the stack
+### Updates
+Keeping images up-to-date
+
+- On the Containers tab, click `Check for updates` to see if there are any image updates available
+- If updates are available go to the Stacks tab, under Actions for your stack select the square `Stop` button and confirm
+- Back on the Containers tab, click `Update all` and wait for the images to update
+- Back to on the Stacks tab, under Actions click the `Play` button to start the stack and wait for it to finish
+- After all the containers are back up, go to the Images tab and click `Prune unused` and confirm
+  - This removes the old images to save disk space on the server
+- Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain functionality
+
+Updating Dockhand
+
+- These commands will update Dockhand and remove the old image afterwards
+```
+sudo docker pull fnsys/dockhand:latest; \
+sudo docker stop dockhand; \
+sudo docker rm dockhand; \
+sudo docker run -d \
+  --name dockhand \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v dockhand_data:/app/data \
+  fnsys/dockhand:latest; \
+sudo docker image prune -f -a;
+```
+
+<!-- To do: document Dockhand self update -->
+
+## Building the Stack
+Pre-pull the docker images to speed up building the stack
 ```
 sudo docker pull ghcr.io/jellyfin/jellyfin; \
 sudo docker pull qmcgaw/gluetun; \
@@ -136,32 +166,6 @@ sudo docker pull ghcr.io/seerr-team/seerr; \
 sudo docker pull ghcr.io/dockur/samba;
 ```
 
-Keeping images up-to-date
-
-- On the Containers tab, click `Check for updates` to see if there are any image updates available
-- If updates are available go to the Stacks tab, under Actions for your stack select the square `Stop` button and confirm
-- Back on the Containers tab, click `Update all` and wait for the images to update
-- Back to on the Stacks tab, under Actions click the `Play` button to start the stack and wait for it to finish
-- After all the containers are back up, go to the Images tab and click `Prune unused` and confirm
-  - This removes the old images to save disk space on the server
-- Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain functionality
-
-### Update Dockhand
-
-These commands will stop, update, prune, and start Dockhand
-```
-sudo docker stop dockhand; \
-sudo docker pull fnsys/dockhand:latest; \
-sudo docker start dockhand; \
-sudo docker image prune -f -a;
-```
-
-<!--
-- Open the containers tab and click `Check for updates`
-- If an update for Dockhand is available, click `Update containers`
--->
-
-## Building the Stack
 Go to Stacks and select `+ Create`
 
 - Give your stack a name at the top
