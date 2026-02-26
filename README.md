@@ -125,12 +125,12 @@ Click `Go to Settings` to configure your local environment
 Keeping images up-to-date
 
 - On the Containers tab, click `Check for updates` to see if there are any image updates available
-- If updates are available go to the Stacks tab, under Actions for your stack select the square `Stop` button and confirm
+- If updates are available go to the Stacks tab, under Actions for your stack click the square `Stop` button and confirm
 - Back on the Containers tab, click `Update all` and wait for the images to update
 - Back to on the Stacks tab, under Actions click the `Play` button to start the stack and wait for it to finish
-- After all the containers are back up, go to the Images tab and click `Prune unused` and confirm
+- After all the containers are back up, go to the Images tab then click `Prune unused` and confirm
   - This removes the old images to save disk space on the server
-- Keeping images up-to-date is necessary for containers such as Prowlarr and Flaresolverr in order to maintain functionality
+- Keeping images up-to-date is necessary for containers like Prowlarr and Flaresolverr to ensure they continue functioning properly
 
 Updating Dockhand
 
