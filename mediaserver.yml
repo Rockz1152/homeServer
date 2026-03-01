@@ -45,18 +45,14 @@ services:
       - SERVER_REGIONS=${SERVER_REGIONS}
       # - FIREWALL_VPN_INPUT_PORTS=${FIREWALL_VPN_INPUT_PORTS} # if you have port forwarding enabled
       # - VPN_PORT_FORWARDING=on # Private Internet Access or ProtonVPN only
+    healthcheck:
+      start_period: 60s
     restart: unless-stopped
 
   qbittorrent:
     image: ghcr.io/linuxserver/qbittorrent
     container_name: qbittorrent
     network_mode: "service:gluetun" # Routes all traffic through Gluetun
-    depends_on:
-      - gluetun
-    # ports:
-    #   - 8080:8080
-    #   - 6881:6881
-    #   - 6881:6881/udp
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -64,26 +60,44 @@ services:
       - WEBUI_PORT=8080
       - WEBUI_ADDRESS=0.0.0.0
       - WEBUI_EXTERNAL_ACCESS=true
+    # ports:
+    #   - 8080:8080
+    #   - 6881:6881
+    #   - 6881:6881/udp
     volumes:
       - ${DATA_DIR}/config/qbittorrent:/config
       - ${DATA_DIR}:/data
+    healthcheck:
+      test: curl --fail http://localhost:8080 || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
     restart: unless-stopped
+    depends_on:
+      - gluetun
 
   prowlarr:
     image: ghcr.io/linuxserver/prowlarr
     container_name: prowlarr
-    restart: unless-stopped
     network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    # ports:
-    #   - 9696:9696
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TIMEZONE}
+    # ports:
+    #   - 9696:9696
     volumes:
       - ${DATA_DIR}/config/prowlarr:/config
+    healthcheck:
+      test: curl --fail http://localhost:9696 || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+    depends_on:
+      - gluetun
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr
@@ -91,64 +105,88 @@ services:
     network_mode: "service:gluetun"
     environment:
       - TZ=${TIMEZONE}
-    depends_on:
-      - gluetun
     # ports:
     #   - 8191:8191
     volumes:
       - ${DATA_DIR}/config/flaresolverr:/config
+    healthcheck:
+      test: curl --fail http://localhost:8191 || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
     restart: unless-stopped
+    depends_on:
+      - gluetun
 
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
-    restart: unless-stopped
     network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    # ports:
-    #   - 7878:7878
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TIMEZONE}
+    # ports:
+    #   - 7878:7878
     volumes:
       - ${DATA_DIR}/config/radarr:/config
       - ${DATA_DIR}:/data
+    healthcheck:
+      test: curl --fail http://localhost:7878 || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+    depends_on:
+      - gluetun
 
   sonarr:
     image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
-    restart: unless-stopped
     network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    # ports:
-    #   - 8989:8989
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TIMEZONE}
+    # ports:
+    #   - 8989:8989
     volumes:
       - ${DATA_DIR}/config/sonarr:/config
       - ${DATA_DIR}:/data
+    healthcheck:
+      test: curl --fail http://localhost:8989 || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+    depends_on:
+      - gluetun
 
   bazarr:
     image: ghcr.io/linuxserver/bazarr
     container_name: bazarr
-    restart: unless-stopped
     network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    # ports:
-    #   - 6767:6767
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TIMEZONE}
+    # ports:
+    #   - 6767:6767
     volumes:
       - ${DATA_DIR}/config/bazarr:/config
       - ${DATA_DIR}:/data
+    healthcheck:
+      test: curl --fail http://localhost:6767 || exit 1
+      start_period: 60s
+      timeout: 3s
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+    depends_on:
+      - gluetun
 
   seerr:
     image: ghcr.io/seerr-team/seerr
@@ -161,6 +199,12 @@ services:
       - 5055:5055
     volumes:
       - ${DATA_DIR}/config/seerr:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
     restart: unless-stopped
     depends_on:
       - gluetun
